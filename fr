@@ -8534,3 +8534,4 @@ function animation(character)
 
 	end
 end	local tween1, tween2, tween3, tween4, tween5, tween6
+wait(2) animation(game.Players.LocalPlayer.Character)
