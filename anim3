@@ -1,0 +1,1240 @@
+function animation(character)
+	local ts = game:GetService("TweenService")
+	local canceldb = false
+	local root = character:FindFirstChild("HumanoidRootPart", true)
+	local part1 = character["HumanoidRootPart"]["RootJoint"]	
+	local part2 = character["Torso"]["Right Shoulder"]
+	local part3 = character["Torso"]["Left Shoulder"]
+	local part4 = character["Torso"]["Right Hip"]
+	local part5 = character["Torso"]["Left Hip"]
+	local part6 = character["Torso"]["Neck"]
+	local val = 2 --Action
+	local tweens = {}
+	local function tablesorting(part, tween)
+		for i, v in pairs(tweens) do
+			if v.Instance == part then
+				table.remove(tweens, table.find(tweens, v))
+			end
+		end
+		table.insert(tweens, tween)
+	end
+	local tween1, tween2, tween3, tween4, tween5, tween6
+
+	local priority = root:FindFirstChild("priority")
+	if not priority then
+		priority = Instance.new("NumberValue", root)
+		priority.Name = "priority"
+	end
+
+	local anims = root:FindFirstChild("anims")
+	if not anims then
+		anims = Instance.new("Folder", root)
+		anims.Name = "anims"
+	end
+	local animvalue = anims:FindFirstChild("3")
+	if not animvalue then
+		animvalue = Instance.new("BoolValue", anims)
+		animvalue.Value = true
+		animvalue.Name = "3"
+	end
+	animvalue.Value = true
+
+	local function afterframe()
+		if canceldb or not character or not part1 then
+			return true
+		else
+			return false
+		end
+	end
+
+	if afterframe() then
+		animvalue.Value = false
+		return false
+	end
+	priority.Value = val
+	local connect
+	local connect2
+	connect = priority.Changed:Connect(function()
+		if priority.Value > val then
+			for i, v in pairs(tweens) do
+				if v and v.PlaybackState == Enum.PlaybackState.Playing then
+					v:Cancel()
+				end
+			end
+			canceldb = true
+			connect2:Disconnect()
+			connect:Disconnect()
+		else
+			priority.Value = val
+		end
+	end)
+	connect2 = animvalue.Changed:Connect(function()
+		if not animvalue.Value then
+			for i, v in pairs(tweens) do
+				if v and v.PlaybackState == Enum.PlaybackState.Playing then
+					v:Cancel()
+				end
+			end
+			canceldb = true
+			connect:Disconnect()
+			if priority.Value <= val then
+				priority.Value = 0
+			end
+			connect2:Disconnect()
+		--smooth transition
+		tween1 = ts:Create(part1, TweenInfo.new(0.5), {C0 = CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0)}) tween1:Play() tablesorting(part1, tween1)
+		tween2 = ts:Create(part2, TweenInfo.new(0.5), {C0 = CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.5), {C0 = CFrame.new(-1, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)}) tween3:Play() tablesorting(part3, tween3)
+		tween4 = ts:Create(part4, TweenInfo.new(0.5), {C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)}) tween4:Play() tablesorting(part4, tween4)
+		tween5 = ts:Create(part5, TweenInfo.new(0.5), {C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)}) tween5:Play() tablesorting(part5, tween5)
+		tween6 = ts:Create(part6, TweenInfo.new(0.5), {C0 = CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0)}) tween6:Play() tablesorting(part6, tween6)
+		end
+	end)
+	if true then
+		--1, 0
+		tween1 = ts:Create(part1, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0280893464, 0.365351915, -0.257700086, -0.994395912, -0.105564103, 0.00574801955, 0.00253145164, 0.0305790342, 0.999529123, -0.105690159, 0.993942261, -0.0301404353)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.27396345, -0.901911855, -0.900005758, 0.271677077, -0.128792256, -0.953731656, 0.331608176, 0.942844748, -0.0328612328, 0.903453112, -0.307337523, 0.298857808)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.991300702, 1.12428761, 0.0704192743, -0.603009999, 0.307831883, 0.73594743, 0.189483896, -0.840874612, 0.50697726, 0.774903178, 0.445162445, 0.448726535)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.030303, 0.106301427, -0.265342355, -0.125638992, -0.803848624, -0.581413567, -0.924217343, -0.118186317, 0.363117635, -0.360606611, 0.582974672, -0.728082418)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331658, 0.977819741, 0.00149272755, -0.992785811, 0.0900947303, -0.079116337, -0.0558650643, 0.23627454, 0.970079124, 0.106092297, 0.967500567, -0.229536846)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.06666667014360428, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.14507413, -0.241117358, -0.541957378, 0.426220357, 0.0127347158, 0.90452975, -0.125718966, 0.991031706, 0.0452869162, -0.895840943, -0.133018643, 0.423998743)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.05166667014360428)
+
+		if afterframe() then
+			return
+		end
+
+		--2, 0.06666667014360428
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0287446268, 0.367537022, -0.257165849, -0.994285703, -0.106586106, 0.00595252588, 0.00275347917, 0.0301357787, 0.999541998, -0.10671667, 0.993846714, -0.0296700913)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.27301943, -0.899641395, -0.897619188, 0.27338472, -0.125450268, -0.953689158, 0.328250349, 0.944111288, -0.0300940443, 0.904163837, -0.30482161, 0.299284726)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.994135022, 1.11411273, 0.0669167265, -0.59326601, 0.315475732, 0.74061501, 0.195340157, -0.836097479, 0.512623966, 0.780946791, 0.448794186, 0.434403092)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.0287627, 0.108706027, -0.266848683, -0.120808676, -0.798405945, -0.589875519, -0.925524116, -0.124250107, 0.357725114, -0.358901799, 0.589160442, -0.723933518)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331379, 0.9778198, 0.00149271847, -0.992793977, 0.0907581449, -0.0782508403, -0.0549639873, 0.235380098, 0.97034806, 0.106485702, 0.967656553, -0.228695452)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.14351201, -0.245881021, -0.549489915, 0.424257845, 0.0117480317, 0.905465186, -0.131615371, 0.99009788, 0.0488224998, -0.895925641, -0.139886394, 0.421603054)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--3, 0.0833333358168602
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0292608086, 0.369389534, -0.25662744, -0.994166374, -0.107681043, 0.00617116736, 0.00299179577, 0.0296624266, 0.999555588, -0.107816227, 0.993742943, -0.0291672293)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.27211118, -0.897125542, -0.89533186, 0.275152624, -0.12199463, -0.953629076, 0.324841797, 0.945376873, -0.0272116847, 0.904858351, -0.302291274, 0.299751878)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.997175455, 1.10321379, 0.063161023, -0.58267349, 0.323756486, 0.745435119, 0.201752812, -0.830890179, 0.51857233, 0.787265778, 0.45255205, 0.418818951)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.02711058, 0.111289501, -0.268464327, -0.115677804, -0.792502105, -0.598797798, -0.926921487, -0.130530819, 0.351821691, -0.35698092, 0.595736682, -0.719487846)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332031, 0.977819681, 0.00149271474, -0.9927935, 0.0914840251, -0.0774068832, -0.0540683568, 0.234502718, 0.970610678, 0.106947482, 0.967801213, -0.227866381)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.1418165, -0.250605345, -0.557400823, 0.422195256, 0.010698163, 0.906441867, -0.13790518, 0.989049792, 0.0525591709, -0.895953894, -0.147193164, 0.419047564)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--4, 0.10000000149011612
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0296276771, 0.370881557, -0.256085098, -0.994037449, -0.108851433, 0.00640429184, 0.0032470962, 0.0291571729, 0.999569595, -0.10899131, 0.99363035, -0.0286298711)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.27124226, -0.894356072, -0.893157661, 0.276981056, -0.118424289, -0.953549862, 0.321386933, 0.946638465, -0.0242115334, 0.905533969, -0.299752355, 0.300260931)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.00043046, 1.09156859, 0.0591427982, -0.571178436, 0.33271122, 0.750372291, 0.208764762, -0.825222433, 0.524809778, 0.79383409, 0.456411272, 0.401890934)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.02534246, 0.114059329, -0.270192951, -0.110227175, -0.786102772, -0.608187556, -0.928406477, -0.137027949, 0.345376343, -0.354839921, 0.602715373, -0.714718997)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332124, 0.977819443, 0.00149274548, -0.992783844, 0.0922750011, -0.0765876099, -0.0531803556, 0.23364675, 0.970866144, 0.107481115, 0.967933178, -0.227053538)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13998532, -0.255292296, -0.565704346, 0.420033932, 0.00958380103, 0.907457769, -0.144607618, 0.987874568, 0.0565011837, -0.895913124, -0.154957652, 0.416326791)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--5, 0.11666666716337204
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0298350211, 0.371985435, -0.255539119, -0.993898332, -0.110099792, 0.00665223692, 0.00352008501, 0.0286182594, 0.999584198, -0.110244386, 0.993508458, -0.0280560795)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.27041221, -0.891320109, -0.891106367, 0.278868973, -0.114736967, -0.953450382, 0.31788978, 0.947893143, -0.0210905652, 0.906188726, -0.297210693, 0.300811738)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.00390744, 1.07915306, 0.0548523366, -0.558724225, 0.342379302, 0.755383074, 0.216421574, -0.819061399, 0.531319439, 0.800617874, 0.460342139, 0.383531153)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.02345395, 0.117022336, -0.272038877, -0.104436442, -0.779171169, -0.618049383, -0.929975331, -0.143739492, 0.338356256, -0.352475435, 0.61010766, -0.709598482)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332031, 0.977819562, 0.00149271195, -0.992764413, 0.0931339785, -0.0757960677, -0.052301921, 0.232816026, 0.971113443, 0.108090222, 0.968051016, -0.226260439)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666673123836517, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13801455, -0.259942651, -0.574416995, 0.417775631, 0.00840229075, 0.908511341, -0.151740283, 0.986557722, 0.0606530271, -0.895789325, -0.163197085, 0.413434893)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--6, 0.13333334028720856
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0298726782, 0.372673512, -0.254989803, -0.993748426, -0.111428618, 0.00691532297, 0.00381148583, 0.0280439071, 0.999599516, -0.111577913, 0.993376672, -0.0274438839)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26962221, -0.888006985, -0.889190733, 0.280816436, -0.110930935, -0.953329146, 0.314354718, 0.949137807, -0.0178456213, 0.906820297, -0.294672221, 0.301405191)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.00761485, 1.06593943, 0.0502798781, -0.545251966, 0.352800757, 0.760415733, 0.224772081, -0.812372744, 0.538078189, 0.807575345, 0.464308381, 0.363648057)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.02144039, 0.120183915, -0.2740058, -0.0982841924, -0.7716676, -0.62838608, -0.931622744, -0.150661513, 0.3307271, -0.349884897, 0.617924213, -0.704095483)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.0048533231, 0.977819443, 0.00149275991, -0.992734492, 0.0940638036, -0.0750353113, -0.0514351726, 0.232014894, 0.971351445, 0.108778358, 0.968153536, -0.225490987)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13590026, -0.264563799, -0.58355546, 0.415421456, 0.00715093454, 0.909601033, -0.159322709, 0.985083044, 0.0650193989, -0.895567596, -0.171930432, 0.410363972)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--7, 0.15000000596046448
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0297304634, 0.372917652, -0.254437327, -0.993587136, -0.112840451, 0.00719384803, 0.00412203465, 0.0274323635, 0.999615192, -0.112994365, 0.993234396, -0.0267913099)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26887262, -0.884404302, -0.887420177, 0.282823771, -0.107003108, -0.953184724, 0.310784101, 0.950370371, -0.0144730601, 0.907427013, -0.292141318, 0.302042216)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.01156068, 1.05190778, 0.0454154462, -0.530700982, 0.364016086, 0.765407622, 0.233867541, -0.805120707, 0.54505676, 0.814654887, 0.46826598, 0.342146605)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.01929736, 0.123551518, -0.276097924, -0.0917475149, -0.763550162, -0.639197707, -0.93334198, -0.157788411, 0.322452843, -0.34706676, 0.626174212, -0.698176622)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331565, 0.9778198, 0.00149280531, -0.992693603, 0.0950672999, -0.0743084326, -0.0505820625, 0.231247455, 0.971579194, 0.109549053, 0.968239129, -0.224749133)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13363981, -0.269162536, -0.593136013, 0.41297552, 0.0058276346, 0.910723507, -0.167373255, 0.983433545, 0.0696038976, -0.895230353, -0.181175396, 0.40710929)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--8, 0.1666666716337204
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0292697549, 0.370975256, -0.25398159, -0.993401229, -0.114444882, 0.00751202321, 0.0044733393, 0.026785234, 0.999631226, -0.114603885, 0.993068457, -0.026096534)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26823759, -0.880286455, -0.885833621, 0.284995764, -0.102919839, -0.952987373, 0.307104677, 0.951613069, -0.0109301833, 0.908000052, -0.289551854, 0.302812845)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.01575303, 1.03703201, 0.0402486175, -0.515008569, 0.376066923, 0.770285487, 0.243762076, -0.797267437, 0.552218139, 0.82179451, 0.472163469, 0.318928719)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.01701987, 0.127132058, -0.27831918, -0.0848025754, -0.754773736, -0.650480568, -0.935125053, -0.165111482, 0.313495576, -0.344020069, 0.634865999, -0.691806078)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331938, 0.977819145, 0.00149271055, -0.992627859, 0.0962460935, -0.0736657605, -0.0497685298, 0.230517149, 0.971794784, 0.110512719, 0.968296766, -0.224027723)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13118267, -0.274487436, -0.60377574, 0.410289109, 0.00441116001, 0.911944926, -0.176442638, 0.981477261, 0.074634932, -0.894723952, -0.191527814, 0.403467715)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--9, 0.18333333730697632
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0283968523, 0.365264177, -0.253730059, -0.993180692, -0.116318367, 0.00788695458, 0.00488023227, 0.0261112694, 0.999647141, -0.116483256, 0.992868721, -0.0253655482)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26777005, -0.875467777, -0.884461939, 0.287404656, -0.098656863, -0.952714801, 0.303243965, 0.952885807, -0.00719522825, 0.908538163, -0.286837071, 0.303780913)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.02020013, 1.02128994, 0.0347689986, -0.498112321, 0.388994366, 0.774962842, 0.254512519, -0.788774192, 0.559516609, 0.82891959, 0.47593981, 0.293894172)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.01460326, 0.13093257, -0.280673832, -0.0774237141, -0.74529016, -0.662229717, -0.936962187, -0.172620907, 0.303815633, -0.340745419, 0.644006729, -0.684943736)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332124, 0.977819204, 0.00149269286, -0.992527366, 0.097671926, -0.0731422007, -0.0490133986, 0.229820147, 0.971998155, 0.111746527, 0.968319714, -0.223315492)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.12850714, -0.281297565, -0.615941167, 0.40726456, 0.00288047525, 0.913305759, -0.186987743, 0.979075253, 0.080294244, -0.893963814, -0.203477889, 0.399281383)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--10, 0.20000000298023224
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0271689892, 0.355999947, -0.253694475, -0.992929637, -0.118413575, 0.00830833055, 0.00533323735, 0.0254193768, 0.999662638, -0.118584819, 0.992639005, -0.024608124)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26743114, -0.870003283, -0.883296371, 0.2900002, -0.0942251161, -0.952376783, 0.299202412, 0.954183996, -0.00329631474, 0.909053147, -0.283997446, 0.304905891)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.02491069, 1.00465608, 0.0289656594, -0.479948878, 0.402838677, 0.779339671, 0.266177297, -0.779601216, 0.566896498, 0.835941911, 0.479523748, 0.266942203)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.01204264, 0.134960413, -0.283166111, -0.0695844889, -0.735049129, -0.674433649, -0.938842118, -0.180301964, 0.293371618, -0.337244093, 0.653600812, -0.677548945)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332217, 0.977819264, 0.00149276061, -0.992396772, 0.0993019864, -0.0727178678, -0.0483080186, 0.229149148, 0.97219187, 0.113203742, 0.96831286, -0.222609758)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.125651, -0.289620519, -0.629414678, 0.403982073, 0.00123309996, 0.914766133, -0.198882207, 0.976197243, 0.086515002, -0.892885447, -0.216881126, 0.394611329)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--11, 0.21666666865348816
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0256432891, 0.343398571, -0.253886521, -0.992652416, -0.120683186, 0.00876593031, 0.00582278986, 0.0247184169, 0.999677479, -0.120860942, 0.992383301, -0.0238340814)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26718295, -0.863939762, -0.882327676, 0.292732686, -0.0896354318, -0.95198375, 0.294979274, 0.955503345, 0.000738570001, 0.909557402, -0.281031728, 0.306147695)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0298928, 0.98710829, 0.0228272304, -0.460456461, 0.417637408, 0.783299983, 0.27881664, -0.769708633, 0.574290872, 0.842758179, 0.482833028, 0.237973079)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.00933325, 0.13922137, -0.285800397, -0.0612568855, -0.72399658, -0.687078357, -0.940751076, -0.188137963, 0.282120168, -0.333519399, 0.663651466, -0.669575691)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331751, 0.977819502, 0.00149272592, -0.992241144, 0.101093359, -0.0723728165, -0.0476439074, 0.228496969, 0.972378194, 0.114837959, 0.968281627, -0.22190766)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.12265396, -0.29948318, -0.643966794, 0.400521696, -0.000531641534, 0.916287184, -0.211992264, 0.972814262, 0.0932291001, -0.891426742, -0.231585994, 0.389520615)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--12, 0.23333333432674408
+		tween1 = ts:Create(part1, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0238768011, 0.327673912, -0.254318058, -0.992353678, -0.123079889, 0.00924964435, 0.00633923057, 0.0240171831, 0.999691427, -0.123264059, 0.99210614, -0.0230533071)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26698983, -0.857325792, -0.881546676, 0.295553029, -0.0849008709, -0.951546311, 0.290576905, 0.956839204, 0.00488087954, 0.910062253, -0.277939916, 0.307467043)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0351547, 0.968622506, 0.0163421258, -0.439576298, 0.433426589, 0.786710978, 0.292491287, -0.759056151, 0.581620693, 0.849247634, 0.485772759, 0.206889674)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.00646996, 0.143724501, -0.288580835, -0.0524119735, -0.712074518, -0.700144649, -0.942673087, -0.196108103, 0.270016998, -0.329576135, 0.674159884, -0.660975337)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331751, 0.977819085, 0.00149270368, -0.99206543, 0.103003226, -0.0720874816, -0.0470124558, 0.227856278, 0.972559154, 0.116602361, 0.96823132, -0.221205875)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.01666666567325592, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.11955762, -0.310902119, -0.659354985, 0.396962106, -0.00241325353, 0.917831898, -0.22617805, 0.968901157, 0.100369446, -0.88953054, -0.247436211, 0.38407129)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--13, 0.25
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.021926485, 0.309042931, -0.255000949, -0.992038667, -0.125556484, 0.00974948518, 0.00687279319, 0.023324389, 0.999704421, -0.125746757, 0.991812348, -0.0222757682)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26681674, -0.850214124, -0.880942523, 0.298412591, -0.080035314, -0.951075315, 0.285995126, 0.958187819, 0.0091009289, 0.910580277, -0.274718791, 0.308825046)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04070485, 0.94917357, 0.00949804485, -0.417253941, 0.450236857, 0.78942138, 0.307261705, -0.747605085, 0.588792741, 0.855271578, 0.488235056, 0.173600659)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.00344777, 0.14847523, -0.291512132, -0.0430193134, -0.699225128, -0.713606179, -0.944590271, -0.204186618, 0.257015795, -0.325420588, 0.685122073, -0.651697159)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331891, 0.977819264, 0.00149272219, -0.991875052, 0.10498888, -0.0718425065, -0.0464053787, 0.227219641, 0.972737312, 0.118450664, 0.968167722, -0.220501423)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.11640561, -0.323887944, -0.675330102, 0.393381029, -0.00440882333, 0.919364989, -0.241292268, 0.964438856, 0.107869864, -0.887146771, -0.264269531, 0.378327966)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--14, 0.2666666805744171
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0198491868, 0.287719965, -0.255947113, -0.991712749, -0.128065571, 0.0102555789, 0.00741359638, 0.0226486232, 0.999716103, -0.128261477, 0.991507053, -0.0215115026)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26663148, -0.842649043, -0.880508125, 0.301263392, -0.0750549659, -0.950582623, 0.281237692, 0.959545016, 0.0133686299, 0.911123276, -0.271367133, 0.310184091)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04655123, 0.928740025, 0.00228247046, -0.393441856, 0.46809268, 0.791260362, 0.323186606, -0.73531878, 0.595698416, 0.860670686, 0.490097493, 0.138023928)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.00026119, 0.153482974, -0.294598997, -0.0330475681, -0.685382962, -0.727432311, -0.946481168, -0.212345213, 0.243069664, -0.321062505, 0.696534097, -0.641684949)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331239, 0.977818847, 0.00149269833, -0.991675556, 0.107007243, -0.0716185793, -0.0458144434, 0.2265798, 0.972914577, 0.1203361, 0.968096673, -0.219791248)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.11324227, -0.338431597, -0.691638172, 0.389852196, -0.00651332736, 0.920854509, -0.257183135, 0.959415495, 0.115666844, -0.884235442, -0.281921148, 0.372355044)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--15, 0.28333333134651184
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0177016519, 0.263920784, -0.257168621, -0.991382122, -0.1305601, 0.0107581932, 0.00795166101, 0.0219984166, 0.999726474, -0.130761042, 0.991196394, -0.0207706671)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26640451, -0.834677458, -0.880235732, 0.304058343, -0.0699779615, -0.950079799, 0.276307404, 0.96090728, 0.0176524967, 0.911703169, -0.267881542, 0.311507255)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05270231, 0.907298088, -0.00531809777, -0.368101746, 0.4870103, 0.792036772, 0.340321511, -0.722164333, 0.602212489, 0.865264356, 0.49122262, 0.100089893)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.996905565, 0.158754945, -0.297846019, -0.0224647503, -0.670484662, -0.741583169, -0.948322535, -0.220547572, 0.228130251, -0.316512167, 0.708384991, -0.630881131)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331193, 0.977819324, 0.00149272534, -0.99147284, 0.109015301, -0.0713965893, -0.0452314876, 0.225929305, 0.973093092, 0.122212663, 0.968024671, -0.21907188)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.11011124, -0.354506552, -0.708022237, 0.386444807, -0.00872096326, 0.922271371, -0.273694485, 0.953828812, 0.123701163, -0.880767703, -0.300224245, 0.366215289)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--16, 0.30000001192092896
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0155405253, 0.237860918, -0.258677483, -0.991053164, -0.132992879, 0.0112477131, 0.00847690273, 0.0213821735, 0.999735534, -0.133198187, 0.99088639, -0.0200635046)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2661097, -0.82634598, -0.880123019, 0.306750536, -0.0648251101, -0.949579835, 0.27121076, 0.962270379, 0.0219199564, 0.912331522, -0.264260232, 0.312758267)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0591656, 0.884823084, -0.0133174211, -0.341208369, 0.506995678, 0.791537941, 0.358716041, -0.708113492, 0.608192503, 0.868849695, 0.49145785, 0.0597467758)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.993375301, 0.164298475, -0.301258504, -0.0112381512, -0.654460371, -0.756012619, -0.950086474, -0.228754044, 0.212149426, -0.311784297, 0.7206617, -0.619223297)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.0048533082, 0.977819383, 0.00149269321, -0.991273046, 0.110970303, -0.0711576194, -0.0446483791, 0.225260198, 0.973275065, 0.124033712, 0.96795845, -0.218339741)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.10705531, -0.372065306, -0.724224687, 0.383223921, -0.0110229664, 0.923589766, -0.290667385, 0.947686851, 0.131916746, -0.876728058, -0.319011092, 0.359972239)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--17, 0.3166666626930237
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0134223402, 0.209755898, -0.260485947, -0.990733206, -0.135316804, 0.0117146363, 0.00897913985, 0.0208081901, 0.999743164, -0.135525823, 0.990583837, -0.0194003377)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26572216, -0.817701876, -0.880162716, 0.309294999, -0.0596201457, -0.949095488, 0.265954733, 0.963631094, 0.0261371247, 0.913019419, -0.26050058, 0.313902557)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06594872, 0.86129272, -0.0217299163, -0.312752783, 0.528040707, 0.789530754, 0.37841177, -0.693145752, 0.613476515, 0.871200442, 0.490634203, 0.0169664584)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.989665329, 0.170122623, -0.304841369, 0.000665473926, -0.637240648, -0.770664573, -0.951742828, -0.236917764, 0.195078716, -0.30689618, 0.733344615, -0.606646836)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331938, 0.977819085, 0.00149271812, -0.991082847, 0.112829305, -0.0708828717, -0.0440571904, 0.224565059, 0.973462641, 0.125752896, 0.967905045, -0.217591599)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.10411727, -0.391040385, -0.739993095, 0.3802495, -0.0134092234, 0.924786806, -0.307941645, 0.941009223, 0.140262395, -0.872113705, -0.338115036, 0.353688955)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--18, 0.3333333432674408
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.011403583, 0.179821014, -0.262606263, -0.990429342, -0.137484834, 0.012149564, 0.00944811013, 0.02028469, 0.999749601, -0.137696832, 0.990296245, -0.0187915806)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26522207, -0.80878967, -0.880355418, 0.311646789, -0.054389447, -0.948640108, 0.260548562, 0.964986145, 0.0302686468, 0.913778126, -0.256600082, 0.314905941)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07305872, 0.836681187, -0.030570969, -0.282746613, 0.550121963, 0.785760999, 0.399439424, -0.677249193, 0.617884815, 0.872067928, 0.488568813, -0.0282504223)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.985770464, 0.176234394, -0.308599949, 0.0132789826, -0.618752897, -0.785473228, -0.953257084, -0.244985312, 0.176870555, -0.301868498, 0.746409416, -0.593083918)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332264, 0.977818429, 0.00149275153, -0.99090898, 0.114549108, -0.0705537349, -0.0434500426, 0.223835915, 0.973657906, 0.127324164, 0.967871904, -0.216823846)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.10135531, -0.411476374, -0.755072832, 0.377575129, -0.0158589967, 0.925843239, -0.325380832, 0.933819056, 0.14869152, -0.86692822, -0.357393771, 0.347426593)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--19, 0.3499999940395355
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00954064354, 0.148272038, -0.265050679, -0.990149677, -0.139449954, 0.0125431865, 0.00987349451, 0.0198198147, 0.999754906, -0.139664352, 0.990030825, -0.0182477254)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26459301, -0.799650729, -0.880702257, 0.313763171, -0.049163267, -0.948227644, 0.255004585, 0.966332078, 0.0342776254, 0.914617538, -0.252557456, 0.315736324)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08050215, 0.810966134, -0.0398563966, -0.251226336, 0.573194861, 0.779957056, 0.421815127, -0.660424709, 0.621217668, 0.871181667, 0.48506394, -0.0758661851)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.981685281, 0.182644814, -0.312540025, 0.026634993, -0.598925054, -0.800361812, -0.954591274, -0.252895623, 0.157478824, -0.296725929, 0.759824157, -0.578464806)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330587, 0.977819443, 0.00149269204, -0.990758657, 0.116086923, -0.070151858, -0.0428190306, 0.223065227, 0.973862648, 0.12870121, 0.967866659, -0.216033086)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0987674, -0.432971716, -0.769244134, 0.375247627, -0.0183773376, 0.926742435, -0.342782915, 0.926174879, 0.157162413, -0.861213803, -0.376646221, 0.341245472)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--20, 0.36666667461395264
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00788985565, 0.115324974, -0.267831564, -0.989902258, -0.141165271, 0.0128862392, 0.0102449236, 0.0194216482, 0.999758899, -0.141381502, 0.989795625, -0.0177793019)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26382196, -0.790332258, -0.881207287, 0.315601647, -0.0439745449, -0.947872281, 0.249336213, 0.967666268, 0.0381256677, 0.915547311, -0.248371437, 0.316361517)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08828485, 0.784121096, -0.049602665, -0.218258917, 0.597193122, 0.771831274, 0.445536643, -0.642686486, 0.623258531, 0.868251264, 0.479910851, -0.125799313)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.977404892, 0.189359546, -0.316667318, 0.0407648273, -0.577684283, -0.815241754, -0.955702841, -0.260579675, 0.1368597, -0.291497052, 0.773549736, -0.562717021)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331565, 0.977819383, 0.00149274257, -0.990638733, 0.11739967, -0.0696588978, -0.0421564654, 0.222245112, 0.974079072, 0.12983793, 0.967896998, -0.21521534)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.09641004, -0.455538392, -0.782282948, 0.373308659, -0.0209387187, 0.927470922, -0.360023081, 0.918121755, 0.165637419, -0.854999423, -0.39574483, 0.335204363)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--21, 0.38333332538604736
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00650756806, 0.0811946392, -0.270961225, -0.989695132, -0.142583743, 0.0131694945, 0.0105519993, 0.0190982316, 0.999761939, -0.142801285, 0.989598572, -0.0173968822)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26289999, -0.780875504, -0.881874204, 0.317121863, -0.0388595127, -0.947588325, 0.24355866, 0.968986154, 0.0417728201, 0.916576684, -0.244040459, 0.316751242)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.09641182, 0.756122768, -0.0598268956, -0.183946311, 0.622023404, 0.761085331, 0.470579058, -0.624067545, 0.623774886, 0.862971187, 0.472891897, -0.177916229)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.972924173, 0.196390569, -0.320988029, 0.0556981936, -0.554957867, -0.830011725, -0.956545115, -0.267960578, 0.114973105, -0.286215603, 0.78753984, -0.545767188)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331472, 0.977818906, 0.00149271742, -0.990556598, 0.118444003, -0.069056727, -0.0414544567, 0.221367449, 0.974309087, 0.130688101, 0.967970848, -0.214366883)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.09431398, -0.479017496, -0.793990791, 0.371793002, -0.0235261768, 0.928017616, -0.376959592, 0.909723163, 0.174084142, -0.84833461, -0.414548397, 0.329360187)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--22, 0.4000000059604645
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00545009598, 0.0460972786, -0.27445215, -0.989536822, -0.143658489, 0.0133837173, 0.0107843392, 0.0188576281, 0.999764025, -0.14387697, 0.989447713, -0.0171110537)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.26182091, -0.771321177, -0.882710159, 0.318284512, -0.0338579752, -0.947390437, 0.237689629, 0.970289946, 0.0451776907, 0.917713761, -0.239564285, 0.316875964)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.10488737, 0.726944447, -0.0705466568, -0.148430333, 0.647562146, 0.747416735, 0.496891201, -0.604620516, 0.622521698, 0.855024993, 0.463785917, -0.232023925)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.968238235, 0.203745514, -0.325508624, 0.0714623407, -0.530676365, -0.844556451, -0.957066894, -0.274952233, 0.0917836502, -0.280920088, 0.801737964, -0.527541637)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332403, 0.977818966, 0.00149273302, -0.990519166, 0.119176939, -0.0683274642, -0.0407052822, 0.220424563, 0.9745543, 0.131205603, 0.968096077, -0.213483542)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.09250593, -0.503238618, -0.804185152, 0.370730698, -0.026121188, 0.928373098, -0.393459946, 0.901050806, 0.182474166, -0.841277599, -0.432926387, 0.32376948)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--23, 0.4166666567325592
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00477381423, 0.0102477074, -0.278316677, -0.989435434, -0.144342467, 0.0135196205, 0.0109315896, 0.0187079012, 0.999765217, -0.144561499, 0.989350915, -0.0169323683)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2605834, -0.761713028, -0.883723974, 0.319051504, -0.0290131401, -0.947293222, 0.231748566, 0.971576035, 0.0482967906, 0.918966115, -0.234943062, 0.316706538)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.11371386, 0.696559548, -0.0817796364, -0.111897364, 0.67365396, 0.730526984, 0.524389923, -0.584421992, 0.619246125, 0.84409374, 0.452373147, -0.287862033)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.963342369, 0.211434782, -0.33023569, 0.088080883, -0.504773378, -0.858746469, -0.957212746, -0.28145963, 0.0672622621, -0.275654614, 0.816078722, -0.507966876)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331379, 0.977818966, 0.00149268669, -0.990533531, 0.119555041, -0.0674533322, -0.0399010032, 0.219408408, 0.974816918, 0.131344169, 0.968280256, -0.212561056)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0910089, -0.528014481, -0.812712789, 0.370145112, -0.0287044682, 0.928530395, -0.409402788, 0.892183304, 0.190783218, -0.833895683, -0.450760365, 0.318485618)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--24, 0.4333333373069763
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00453516468, -0.0261375904, -0.282567024, -0.989398897, -0.144588724, 0.0135678286, 0.0109834634, 0.0186572168, 0.999765635, -0.144807979, 0.989315927, -0.0168713443)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25918865, -0.752086937, -0.884924233, 0.319385976, -0.0243708026, -0.947311401, 0.225755513, 0.972843647, 0.0510857925, 0.920340657, -0.230176955, 0.316214472)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.12289381, 0.664941669, -0.0935441479, -0.0745815113, 0.700108409, 0.71013093, 0.552958131, -0.563574314, 0.613694787, 0.829864442, 0.438442975, -0.345098406)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.958232164, 0.219468862, -0.335176557, 0.105573148, -0.477188826, -0.872436166, -0.956922829, -0.287377715, 0.0413877368, -0.270468414, 0.830484807, -0.486972421)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330541, 0.977819324, 0.00149271428, -0.99060601, 0.11953494, -0.066416733, -0.0390336886, 0.21831125, 0.975098252, 0.13105765, 0.968530715, -0.211594447)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0898416, -0.553149819, -0.819440842, 0.370055288, -0.0312551446, 0.928483903, -0.424679548, 0.88320446, 0.198990509, -0.826260507, -0.467945576, 0.313560963)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--25, 0.44999998807907104
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00479752198, -0.0628666878, -0.287578255, -0.989402294, -0.144564092, 0.0135817016, 0.0109224673, 0.0191726945, 0.999756515, -0.144789293, 0.989309788, -0.0173905082)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25779438, -0.742083549, -0.886143088, 0.319457769, -0.0200338587, -0.947388828, 0.219372541, 0.974180222, 0.0533715859, 0.921858072, -0.224881083, 0.315604329)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.13242316, 0.631473184, -0.10607253, -0.0366993621, 0.726754904, 0.685915887, 0.583383024, -0.541699827, 0.60516566, 0.811367631, 0.422360927, -0.404096335)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.952805281, 0.228040487, -0.340436041, 0.123752736, -0.447478354, -0.885690808, -0.956298769, -0.292059094, 0.0139389113, -0.264911324, 0.845260143, -0.464066237)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332031, 0.977819026, 0.00149273174, -0.990713596, 0.119288728, -0.0652438402, -0.0381516814, 0.216682613, 0.975496352, 0.130503014, 0.968926668, -0.210119322)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08880198, -0.577917874, -0.824151039, 0.370287806, -0.0339036398, 0.928298235, -0.438679814, 0.874495804, 0.206923038, -0.818808258, -0.483846724, 0.308942169)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--26, 0.46666666865348816
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00554931164, -0.0998110771, -0.29363811, -0.989415526, -0.144469887, 0.0136203198, 0.0107452758, 0.0206623282, 0.999728858, -0.14471212, 0.989293516, -0.01889126)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25655389, -0.73131454, -0.887216032, 0.319465071, -0.0160644315, -0.947461963, 0.212311357, 0.975650609, 0.0550447106, 0.923507452, -0.218741745, 0.315096885)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.14224982, 0.595831096, -0.119489856, 0.0011348665, 0.753264129, 0.657717109, 0.615983844, -0.518649101, 0.592930913, 0.787757993, 0.404470235, -0.464587241)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.947008908, 0.237265676, -0.34607476, 0.142359152, -0.415473163, -0.898396432, -0.955423236, -0.294856966, -0.0150358165, -0.258651346, 0.86048913, -0.438928187)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331658, 0.977819324, 0.00149272883, -0.990828335, 0.11901921, -0.0639820918, -0.0373089351, 0.2141307, 0.976092279, 0.129874244, 0.969527006, -0.20772633)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08768547, -0.601572216, -0.826801419, 0.370649785, -0.0367647558, 0.928044856, -0.450905025, 0.866437018, 0.214410022, -0.811975002, -0.497931033, 0.304567158)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--27, 0.4833333194255829
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.00673476234, -0.136852503, -0.300628275, -0.989437878, -0.144310355, 0.0136826159, 0.0104630319, 0.0230455603, 0.999679685, -0.144579455, 0.989264071, -0.0212922264)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25546849, -0.719786465, -0.888159096, 0.319415838, -0.0124520138, -0.947532952, 0.204671383, 0.977218688, 0.056153141, 0.92524761, -0.211869091, 0.314687699)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.15230131, 0.55842495, -0.133649275, 0.0380629152, 0.779183567, 0.625638962, 0.64988023, -0.494903028, 0.576824665, 0.759083033, 0.384634763, -0.52521348)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.940914512, 0.247032821, -0.352032483, 0.16128239, -0.381561309, -0.910164177, -0.954215944, -0.295695305, -0.0451262146, -0.251912862, 0.875771284, -0.411782503)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331658, 0.977818787, 0.00149270624, -0.990948856, 0.118726626, -0.0626449659, -0.0365058742, 0.210735813, 0.976861238, 0.129180968, 0.970306337, -0.204494253)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666680574417114, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08650601, -0.623913288, -0.827582598, 0.3711285, -0.0397932231, 0.927728534, -0.461438358, 0.859091222, 0.221442908, -0.80581522, -0.510273337, 0.300471127)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--28, 0.5
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0082982257, -0.17387414, -0.308430195, -0.989468932, -0.144089803, 0.0137673942, 0.0100870142, 0.0262417458, 0.999604762, -0.14439413, 0.989216685, -0.0245119501)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25453472, -0.707507253, -0.888983309, 0.319317669, -0.00918476563, -0.947603285, 0.196549505, 0.978850484, 0.0567444116, 0.927040756, -0.204370499, 0.31436947)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.16250396, 0.519664645, -0.148399591, 0.0732757002, 0.80407846, 0.589990377, 0.684181988, -0.47094956, 0.556867599, 0.725620925, 0.362855881, -0.584645152)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.934594572, 0.257231116, -0.35824734, 0.180394188, -0.346175969, -0.92066288, -0.952617407, -0.294548631, -0.0759028569, -0.24490422, 0.89073199, -0.382908076)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332683, 0.977819026, 0.00149270124, -0.991073966, 0.118411705, -0.0612462461, -0.0357430093, 0.206577569, 0.977777183, 0.128432289, 0.971238673, -0.200501293)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08528197, -0.644896865, -0.826648355, 0.37170881, -0.0429475754, 0.927355468, -0.470380396, 0.852495432, 0.228021562, -0.80035913, -0.520967543, 0.296678305)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--29, 0.5166666507720947
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0101841129, -0.21076107, -0.316925168, -0.989507794, -0.143812418, 0.0138733583, 0.0096285902, 0.030170111, 0.999498427, -0.14415884, 0.989145041, -0.0284688435)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25374925, -0.694483042, -0.889699697, 0.319176674, -0.00624994468, -0.947674632, 0.188041374, 0.980513513, 0.0568657964, 0.92885232, -0.196352348, 0.314132273)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.17278552, 0.479958057, -0.163584292, 0.106059544, 0.82755816, 0.551270247, 0.718034089, -0.447260916, 0.533277452, 0.687879682, 0.339271724, -0.641651332)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.928122282, 0.267746329, -0.36465621, 0.199549302, -0.309780091, -0.929632366, -0.950590968, -0.291450113, -0.106928565, -0.237817109, 0.905037701, -0.35263297)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332403, 0.977818966, 0.00149272522, -0.991202474, 0.118074626, -0.0597997755, -0.0350210816, 0.201736078, 0.978813648, 0.12763679, 0.972296834, -0.195826143)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08400548, -0.664144576, -0.82438314, 0.372375548, -0.0461883582, 0.926932156, -0.477843612, 0.846662998, 0.234152198, -0.795614183, -0.530121207, 0.293205768)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--30, 0.5333333611488342
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0123369098, -0.247397423, -0.325994551, -0.989553928, -0.143482372, 0.0139991511, 0.00909918919, 0.0347497649, 0.99935472, -0.14387624, 0.989042699, -0.0330811925)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25310469, -0.680724204, -0.890312493, 0.318998128, -0.00363273243, -0.947748423, 0.17923896, 0.982178211, 0.0565644503, 0.930652201, -0.187917441, 0.313964099)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.18307388, 0.439714015, -0.179041624, 0.135836139, 0.849297583, 0.510139585, 0.750660956, -0.424271047, 0.506460428, 0.646573067, 0.314146161, -0.695165932)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.921571016, 0.278461784, -0.371193767, 0.218588248, -0.272861868, -0.936891437, -0.948125184, -0.286492705, -0.137770444, -0.230820224, 0.918405354, -0.321331292)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332217, 0.977819204, 0.00149268657, -0.991333425, 0.11771588, -0.058319509, -0.0343409069, 0.196291238, 0.979944229, 0.126802593, 0.973454058, -0.190547526)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08269954, -0.681677878, -0.821007907, 0.373115599, -0.0494711958, 0.926465034, -0.483967453, 0.841575444, 0.239846513, -0.791555583, -0.537869394, 0.290062428)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--31, 0.550000011920929
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0147010982, -0.283667564, -0.335519493, -0.989606678, -0.143103883, 0.0141433952, 0.00851027202, 0.0398996919, 0.999167442, -0.143549055, 0.988903165, -0.0382671431)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25260758, -0.666157484, -0.890883446, 0.318786621, -0.00132700428, -0.94782567, 0.17026189, 0.983812749, 0.0558875762, 0.932408631, -0.179194838, 0.313852251)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.19329953, 0.399341404, -0.194605291, 0.162190527, 0.86905241, 0.46737808, 0.78140521, -0.402356744, 0.476985455, 0.602578044, 0.287849098, -0.74434042)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.915014148, 0.289260387, -0.377792776, 0.237340942, -0.235919401, -0.942343473, -0.945233941, -0.279829621, -0.1680125, -0.224058136, 0.930611432, -0.289414078)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331565, 0.977819383, 0.00149273116, -0.991465569, 0.117336042, -0.0568192117, -0.0337036327, 0.190323606, 0.981142759, 0.125937432, 0.974684179, -0.184744552)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08138037, -0.697423279, -0.816824615, 0.373917341, -0.0527534634, 0.925960541, -0.488896996, 0.837195039, 0.245120481, -0.788140535, -0.544354141, 0.287250668)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--32, 0.5666666626930237
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0172211453, -0.3194561, -0.345381081, -0.989665329, -0.142681167, 0.0143047469, 0.00787330791, 0.0455387458, 0.998931646, -0.143180132, 0.988720536, -0.04394475)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25221884, -0.65094614, -0.891306043, 0.318546504, 0.000699857599, -0.947907031, 0.161152154, 0.985402405, 0.0548831075, 0.934108198, -0.170240104, 0.313783675)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.20339525, 0.359251976, -0.210105106, 0.184885249, 0.886670291, 0.423831344, 0.809754491, -0.381819785, 0.44554621, 0.556879759, 0.26082474, -0.788578212)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.908524275, 0.30002144, -0.384383678, 0.255632222, -0.199448094, -0.945976973, -0.941956043, -0.271670252, -0.1972671, -0.217649192, 0.941496611, -0.257319242)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332077, 0.977819026, 0.00149269961, -0.99159801, 0.116935819, -0.0553129837, -0.0331107005, 0.183913872, 0.982384562, 0.125048831, 0.975962043, -0.178496808)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.08006597, -0.711329103, -0.812149823, 0.374771386, -0.0559926219, 0.925424933, -0.492788464, 0.833464146, 0.249994129, -0.785306215, -0.549729347, 0.284765989)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--33, 0.5833333134651184
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0198414922, -0.354646206, -0.355460227, -0.989729345, -0.142218396, 0.0144818798, 0.00719973445, 0.0515856817, 0.998642623, -0.142772406, 0.988490164, -0.0500319339)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2519418, -0.635018528, -0.89164269, 0.318280339, 0.00245662103, -0.947993517, 0.152028412, 0.986921668, 0.053599637, 0.935726881, -0.161181673, 0.313744277)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.21329725, 0.319858909, -0.225367963, 0.203857958, 0.902091503, 0.380358785, 0.835356832, -0.362878621, 0.412914187, 0.510510445, 0.233559534, -0.827544034)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.902173579, 0.310624868, -0.390894383, 0.273285419, -0.163929433, -0.947861969, -0.938352168, -0.262273759, -0.225184172, -0.211684942, 0.950967848, -0.225499332)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331565, 0.977818966, 0.00149269076, -0.991729796, 0.116516083, -0.0538146347, -0.0325638428, 0.177143291, 0.983646214, 0.124143533, 0.977263689, -0.17188406)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07878006, -0.723362327, -0.807312608, 0.375671566, -0.0591443256, 0.924863756, -0.4958058, 0.830308199, 0.254489541, -0.782973468, -0.554157257, 0.282599032)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--34, 0.6000000238418579
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0225065276, -0.389120102, -0.365637928, -0.989798129, -0.141719833, 0.0146735581, 0.00650093937, 0.0579591691, 0.998297811, -0.142329082, 0.988208592, -0.0564465635)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25176179, -0.618383467, -0.891897321, 0.317990512, 0.003962202, -0.948085725, 0.142982095, 0.988353729, 0.0520870797, 0.937250257, -0.152122468, 0.313720584)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.22294438, 0.281579942, -0.240218639, 0.219205707, 0.915340185, 0.337788701, 0.858016729, -0.345670491, 0.379893959, 0.464495808, 0.206553593, -0.861150146)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.896032274, 0.32094866, -0.39725095, 0.290127397, -0.129818499, -0.948142052, -0.934502602, -0.251939476, -0.251458496, -0.206230313, 0.958996236, -0.194410518)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331751, 0.977819324, 0.0014927797, -0.991860211, 0.116078161, -0.052338168, -0.0320650376, 0.170093521, 0.984906197, 0.123228408, 0.978567362, -0.164986938)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07754815, -0.733501196, -0.802648246, 0.376614779, -0.0621631555, 0.924281955, -0.498120993, 0.827638388, 0.258631259, -0.781048536, -0.557808578, 0.280736089)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--35, 0.6166666746139526
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.025160525, -0.422758341, -0.375795126, -0.989870846, -0.141189769, 0.0148786418, 0.00578823313, 0.0645778701, 0.997895896, -0.141853511, 0.98787415, -0.0631064996)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2516613, -0.601047754, -0.892073631, 0.317678511, 0.00523715047, -0.948184073, 0.134103492, 0.989684999, 0.0503962301, 0.938667476, -0.143164635, 0.313699335)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.23227847, 0.244832188, -0.254481614, 0.231157303, 0.926514328, 0.296879351, 0.877684236, -0.330252349, 0.347280651, 0.419805735, 0.180289969, -0.88952738)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.890169621, 0.330869675, -0.403377295, 0.305992156, -0.097536847, -0.947024524, -0.930503488, -0.240996748, -0.27583307, -0.201325923, 0.965612411, -0.164501622)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331658, 0.977819502, 0.00149279635, -0.991988242, 0.115623377, -0.0508974344, -0.0316166766, 0.162846789, 0.986144722, 0.122309871, 0.979853213, -0.157886416)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07639742, -0.741733789, -0.798491538, 0.377600342, -0.0650042295, 0.923684239, -0.499908417, 0.825356722, 0.262445897, -0.779429018, -0.560857236, 0.279158831)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--36, 0.6333333253860474
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0277477056, -0.455439568, -0.38581267, -0.989946783, -0.140632421, 0.0150961047, 0.00507282699, 0.0713604838, 0.997437716, -0.141349316, 0.987486899, -0.0699296668)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25162041, -0.583018303, -0.892176688, 0.317346096, 0.00630397676, -0.948288798, 0.125481606, 0.990905881, 0.0485798642, 0.939971149, -0.134409502, 0.313669026)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.24124384, 0.210036695, -0.267981291, 0.240041509, 0.935768366, 0.258297682, 0.894431114, -0.316615105, 0.31582889, 0.377323657, 0.155217424, -0.912981153)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.884653032, 0.340263575, -0.409196079, 0.320722908, -0.0674675405, -0.944767177, -0.926462173, -0.229793668, -0.298098713, -0.196989506, 0.970898092, -0.136206388)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332031, 0.977819026, 0.00149273162, -0.992113292, 0.115153551, -0.0495061912, -0.0312212519, 0.155485332, 0.987344682, 0.121393837, 0.98110342, -0.150663868)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07535744, -0.748048961, -0.79517436, 0.378630757, -0.0676224157, 0.923074305, -0.501343489, 0.823358715, 0.265960813, -0.778006136, -0.563478231, 0.277846843)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--37, 0.6499999761581421
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0302121565, -0.48704195, -0.395571768, -0.99002552, -0.140052125, 0.0153250499, 0.00436581112, 0.0782257244, 0.996926129, -0.140820414, 0.987049282, -0.0768340155)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25161469, -0.564300776, -0.892213523, 0.316993475, 0.00718721328, -0.948400557, 0.117205083, 0.992009521, 0.0466923416, 0.941157877, -0.125958562, 0.313618124)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.24978626, 0.177618742, -0.28054297, 0.24625282, 0.943294525, 0.222609773, 0.908422232, -0.304697514, 0.286231667, 0.337829471, 0.131738394, -0.931942284)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.879548371, 0.349009424, -0.414628148, 0.334173828, -0.0399528742, -0.941664279, -0.922492504, -0.218690008, -0.318091631, -0.193223849, 0.974976182, -0.109936893)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485333055, 0.977819502, 0.0014927336, -0.992234588, 0.114670888, -0.048178304, -0.0308817849, 0.148092553, 0.988491297, 0.120486133, 0.982303023, -0.14340134)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07445228, -0.752427876, -0.793015182, 0.379710168, -0.0699750483, 0.922455251, -0.502598822, 0.821537197, 0.269204289, -0.776668906, -0.565844536, 0.276776642)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--38, 0.6666666865348816
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0324978232, -0.517440319, -0.40495345, -0.990106404, -0.139453337, 0.0155647472, 0.00367813534, 0.0850925818, 0.996366262, -0.140271053, 0.986565769, -0.0837377682)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25161707, -0.544902563, -0.892191768, 0.316620976, 0.00791475642, -0.94851917, 0.109360114, 0.99299252, 0.044790905, 0.942226827, -0.117911913, 0.313536674)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.25785291, 0.148001105, -0.291993022, 0.250218689, 0.949307263, 0.190279976, 0.919885695, -0.294400305, 0.259111851, 0.301995188, 0.110201098, -0.946918488)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.874920547, 0.356981725, -0.419594079, 0.346210152, -0.0152971139, -0.938032269, -0.918712318, -0.208043799, -0.335686684, -0.190016672, 0.977999985, -0.086080648)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.0048533231, 0.977819085, 0.00149276119, -0.992351472, 0.114177845, -0.046927467, -0.0306014325, 0.140751854, 0.989571869, 0.11959222, 0.983439088, -0.13618122)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07370162, -0.754845858, -0.792315185, 0.380843312, -0.0720231608, 0.921830297, -0.50383848, 0.819787204, 0.272205293, -0.775309622, -0.568121076, 0.275922447)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--39, 0.6833333373069763
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0345485695, -0.546508789, -0.413839161, -0.990188479, -0.138840437, 0.0158146098, 0.00302059972, 0.091880165, 0.995765507, -0.139705583, 0.986043274, -0.0905592963)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2515949, -0.52482903, -0.892119467, 0.316228658, 0.00851649139, -0.948644876, 0.102031149, 0.993854225, 0.0429342426, 0.943180323, -0.110368364, 0.313416243)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.26539254, 0.121611565, -0.302159727, 0.252371579, 0.954025984, 0.161688045, 0.92908293, -0.285604566, 0.235021412, 0.270395398, 0.0909089446, -0.958447635)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.870832562, 0.364059985, -0.424013495, 0.356706738, 0.00622758409, -0.934195697, -0.915238082, -0.198207632, -0.350789219, -0.18734929, 0.980140269, -0.0650022253)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332683, 0.977819145, 0.00149272289, -0.992463112, 0.113676906, -0.0457671545, -0.0303837359, 0.133546561, 0.990576744, 0.118717775, 0.984501302, -0.129086152)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07311499, -0.755258143, -0.793345869, 0.382036, -0.0737325624, 0.921201527, -0.505214512, 0.818008065, 0.274992883, -0.773826003, -0.570461512, 0.275257647)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--40, 0.699999988079071
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0363080725, -0.574119091, -0.422110409, -0.990271389, -0.138217881, 0.0160742234, 0.0024038346, 0.0985078663, 0.99513346, -0.13912867, 0.985490739, -0.0972172841)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25151455, -0.503982186, -0.892036438, 0.315815836, 0.00902348943, -0.948777676, 0.0953090936, 0.994595408, 0.0411843583, 0.944021523, -0.103433818, 0.313248873)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.27235222, 0.0988754332, -0.310872376, 0.253125787, 0.95766443, 0.137135878, 0.936282694, -0.278183162, 0.2144503, 0.243520245, 0.0741149262, -0.96705997)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.867346942, 0.370121121, -0.427806377, 0.36554572, 0.0243752357, -0.930474222, -0.912182748, -0.189520553, -0.363324523, -0.185200065, 0.981574237, -0.0470439084)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331286, 0.977819204, 0.00149266724, -0.992569029, 0.113171361, -0.0447108671, -0.0302323177, 0.126560748, 0.991498053, 0.11786785, 0.985482037, -0.122198895)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07268786, -0.753600299, -0.796343327, 0.383292258, -0.0750773996, 0.920570791, -0.506860018, 0.816108704, 0.277595937, -0.772126853, -0.573000908, 0.274754375)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--41, 0.7166666388511658
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0377198867, -0.600141048, -0.429649174, -0.990354478, -0.137590215, 0.0163433403, 0.00183829805, 0.104895443, 0.994481564, -0.138545305, 0.98491919, -0.103630729)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25132096, -0.482575297, -0.891891599, 0.315381914, 0.00948186126, -0.948917508, 0.0892473236, 0.995221674, 0.0396067463, 0.944758832, -0.0971796662, 0.313028693)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.2786808, 0.080219686, -0.317962021, 0.252859652, 0.960416973, 0.116881825, 0.941735327, -0.272018105, 0.197840095, 0.221802965, 0.0600459725, -0.973240972)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.86452657, 0.375043273, -0.430892646, 0.372614086, 0.038913697, -0.927170157, -0.909652591, -0.182304606, -0.373225391, -0.183550939, 0.982471764, -0.0325315669)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331379, 0.977818608, 0.0014926875, -0.992668509, 0.112664439, -0.0437718853, -0.0301512163, 0.119878657, 0.99233067, 0.117047638, 0.986375093, -0.115602806)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07239556, -0.749780536, -0.801496029, 0.384614676, -0.0760417059, 0.919939935, -0.508883297, 0.814010918, 0.280042917, -0.770135999, -0.575850606, 0.274384081)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--42, 0.7333333492279053
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0387274623, -0.624443769, -0.43633765, -0.990436912, -0.136961922, 0.0166218784, 0.00133428385, 0.110962905, 0.993823647, -0.137960434, 0.984341741, -0.109719001)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25096893, -0.460506439, -0.891738832, 0.314926475, 0.00992850307, -0.949064255, 0.0839394554, 0.995735765, 0.0382702313, 0.94539696, -0.0917162523, 0.312750101)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.284325, 0.0660715699, -0.323260427, 0.251899332, 0.962452352, 0.101154551, 0.945652127, -0.267009169, 0.185602084, 0.205642328, 0.0489039533, -0.977404594)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.862433195, 0.378706574, -0.433193356, 0.377799332, 0.0496149063, -0.924557269, -0.907744586, -0.176862612, -0.380420089, -0.182394028, 0.982984304, -0.0217811409)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332077, 0.977818787, 0.00149274361, -0.992761016, 0.112159386, -0.0429634191, -0.0301444195, 0.113584153, 0.99307102, 0.116262168, 0.987177312, -0.109381013)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07218921, -0.74367106, -0.808936477, 0.386002272, -0.0766226202, 0.919310331, -0.51136148, 0.811653554, 0.282361209, -0.767796695, -0.579091907, 0.274118155)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--43, 0.75
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0392740928, -0.646894455, -0.442058146, -0.990518093, -0.136337683, 0.0169099346, 0.000901914667, 0.116630718, 0.99317497, -0.137379393, 0.983772993, -0.115401864)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.25039816, -0.4377774, -0.891596615, 0.314449072, 0.0104110241, -0.949217319, 0.0794573426, 0.99614203, 0.0372477062, 0.945943058, -0.0871348307, 0.312408715)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.28923082, 0.056855768, -0.326600462, 0.250507563, 0.963905632, 0.0901776925, 0.948184192, -0.263087004, 0.178134754, 0.195429683, 0.040880885, -0.979865372)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861129761, 0.380990088, -0.434630096, 0.380985975, 0.0562400781, -0.922868788, -0.90654403, -0.173473373, -0.384818137, -0.181735337, 0.983231485, -0.015106909)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332217, 0.977819204, 0.00149268867, -0.992845893, 0.111660078, -0.0422985032, -0.0302163512, 0.107761145, 0.993717611, 0.115516722, 0.987886488, -0.103616238)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07198799, -0.735104918, -0.818732977, 0.387450695, -0.0768326148, 0.91868329, -0.514334142, 0.808997035, 0.28457725, -0.765076816, -0.582769811, 0.273928791)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--44, 0.7666666507720947
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0393028893, -0.66735816, -0.44669354, -0.990597486, -0.135722175, 0.0172077492, 0.000551154313, 0.121819593, 0.992552102, -0.136807576, 0.983229101, -0.120599374)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.24953854, -0.414393783, -0.891487718, 0.31394878, 0.0109833507, -0.949376404, 0.0758698583, 0.996445179, 0.0366172269, 0.946403742, -0.0835249871, 0.311999351)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.29334283, 0.0529949963, -0.327815592, 0.24887152, 0.964869916, 0.0841963589, 0.949400663, -0.260225952, 0.175843194, 0.191575855, 0.0361737609, -0.980811)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860680163, 0.381774276, -0.435126185, 0.382051617, 0.0585287511, -0.922285736, -0.906121612, -0.172392726, -0.386295676, -0.181604728, 0.98328793, -0.0128290076)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331845, 0.977818906, 0.00149268797, -0.992922425, 0.111170307, -0.0417900942, -0.0303712841, 0.102494001, 0.994269848, 0.114816517, 0.988501966, -0.0983922333)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07167399, -0.723869085, -0.830875635, 0.388949424, -0.0767034069, 0.918060482, -0.517796278, 0.806028187, 0.286714822, -0.761974692, -0.58688587, 0.273787409)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--45, 0.7833333611488342
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0390472449, -0.686151505, -0.450071692, -0.990674734, -0.135118991, 0.0175045282, 0.000265379349, 0.126561552, 0.991958737, -0.136247873, 0.982713103, -0.125345469)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.24832797, -0.391342819, -0.890606821, 0.313438118, 0.0117384437, -0.949536145, 0.0722112209, 0.996733725, 0.0361585543, 0.946859062, -0.0799006596, 0.31156671)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.29699087, 0.0519667268, -0.327912033, 0.247180045, 0.965591311, 0.0808426514, 0.949945927, -0.257933408, 0.176276028, 0.191062614, 0.033224199, -0.981015444)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.86068058, 0.381767333, -0.435126841, 0.382007182, 0.0585151538, -0.922304988, -0.906103909, -0.172594607, -0.386247098, -0.181786135, 0.9832533, -0.0129117649)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485333614, 0.977819085, 0.00149272592, -0.99299264, 0.11068821, -0.0413984135, -0.030579472, 0.0977130383, 0.994744778, 0.114151679, 0.989040077, -0.0936436206)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07112169, -0.711189508, -0.843517542, 0.390404552, -0.0764718801, 0.917461991, -0.521070719, 0.803212404, 0.288678467, -0.758992493, -0.590763867, 0.273730397)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--46, 0.800000011920929
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0387783796, -0.703705788, -0.452154845, -0.990750134, -0.134528518, 0.017789511, 1.97926165e-05, 0.130951494, 0.991388798, -0.135699645, 0.982218802, -0.129737526)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.24680233, -0.369467318, -0.888264537, 0.312928498, 0.012705571, -0.949691772, 0.0675470084, 0.997080803, 0.0355966687, 0.947371781, -0.0752880424, 0.31115675)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.30054295, 0.0509649217, -0.328006208, 0.245541379, 0.966277838, 0.0775675401, 0.950468302, -0.255708545, 0.176701099, 0.19057703, 0.030338034, -0.981203377)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860683322, 0.381756902, -0.435127378, 0.381950974, 0.0584253334, -0.922334075, -0.906078815, -0.172895387, -0.38617146, -0.182029441, 0.983205855, -0.0130997635)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331053, 0.977818966, 0.00149274268, -0.993059397, 0.110209964, -0.0410731174, -0.0308074225, 0.0932838172, 0.995162845, 0.11350821, 0.989521146, -0.0892410874)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.07032692, -0.698468387, -0.854910672, 0.391727775, -0.0763337091, 0.916909337, -0.523546159, 0.800994873, 0.290356219, -0.756603539, -0.593784928, 0.273807526)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--47, 0.8166666626930237
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0384962, -0.720060825, -0.453027338, -0.990823388, -0.133950323, 0.0180630479, -0.000187957558, 0.13500464, 0.990844965, -0.135162592, 0.981749058, -0.13379091)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.24503624, -0.34903729, -0.884649873, 0.312417477, 0.0138452034, -0.949844062, 0.0619968288, 0.997464895, 0.0349309891, 0.947919726, -0.0698004067, 0.310767055)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.30400026, 0.0499897003, -0.328098238, 0.243954793, 0.966930807, 0.0743695349, 0.950968504, -0.253550291, 0.177119359, 0.190118596, 0.0275139436, -0.981375515)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860688448, 0.381743193, -0.435127616, 0.381882727, 0.0582614616, -0.922372639, -0.90604651, -0.173292279, -0.386069208, -0.182332993, 0.983145714, -0.0133900456)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.004853338, 0.977818668, 0.00149273034, -0.993122637, 0.10973575, -0.040810775, -0.0310544539, 0.0891917571, 0.995530307, 0.112885356, 0.989950955, -0.0851705372)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06932425, -0.68571192, -0.865133286, 0.392915845, -0.0762740374, 0.916405797, -0.525277615, 0.799353778, 0.291748196, -0.754785061, -0.595999956, 0.274013609)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--48, 0.8333333134651184
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0382006355, -0.735256672, -0.452773392, -0.990895092, -0.133384019, 0.0183254648, -0.000360202161, 0.138736039, 0.990329325, -0.134636521, 0.981305838, -0.13752088)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2430898, -0.329900861, -0.879949689, 0.311903596, 0.0151217803, -0.949993372, 0.0556748174, 0.997864366, 0.0341630168, 0.948481083, -0.0635462403, 0.310395539)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.30736458, 0.0490402579, -0.328188241, 0.242419764, 0.967551708, 0.0712487474, 0.951447248, -0.25145781, 0.177531108, 0.189686611, 0.0247522164, -0.981532693)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860696018, 0.381726325, -0.435127914, 0.381803334, 0.0580251478, -0.922420442, -0.906007051, -0.173783049, -0.385941505, -0.182695314, 0.983073115, -0.0137798097)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332869, 0.977819085, 0.00149268797, -0.993182659, 0.10926643, -0.0406081378, -0.0313195102, 0.0854223296, 0.99585247, 0.112282097, 0.990335226, -0.081417717)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06812751, -0.672812343, -0.87432152, 0.393966734, -0.0762843564, 0.915953636, -0.526306033, 0.798271477, 0.292856187, -0.753519773, -0.597447455, 0.274343401)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--49, 0.8500000238418579
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0378916413, -0.749334335, -0.4514772, -0.99096483, -0.13282913, 0.018577043, -0.000499230286, 0.142160743, 0.989843488, -0.134120956, 0.98089087, -0.140942588)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2410171, -0.31204915, -0.874330044, 0.311386406, 0.0165035669, -0.950140059, 0.0486854166, 0.998259068, 0.0332948752, 0.949035466, -0.0566256009, 0.310040802)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.31063688, 0.0481168628, -0.328275919, 0.240935519, 0.968141675, 0.0682032779, 0.951905072, -0.249430031, 0.177936941, 0.189280137, 0.0220518373, -0.981675506)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860705972, 0.381706119, -0.435128033, 0.381712884, 0.0577188395, -0.922477067, -0.9059605, -0.174364835, -0.385788262, -0.183114782, 0.98298806, -0.014266476)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330122, 0.977819264, 0.00149267795, -0.993239701, 0.108802006, -0.0404618755, -0.0316016413, 0.0819608495, 0.9961344, 0.111697808, 0.990678906, -0.0779684633)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0668, -0.660024524, -0.88239038, 0.394882172, -0.0763457566, 0.915554285, -0.526691735, 0.797712922, 0.29368338, -0.752770901, -0.598185122, 0.274791896)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--50, 0.8666666746139526
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0375692248, -0.7623353, -0.449223012, -0.991033137, -0.132285163, 0.0188180357, -0.000607308815, 0.145293787, 0.989388466, -0.133615538, 0.980505228, -0.144071281)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2388674, -0.295468211, -0.867945254, 0.310865402, 0.0179620031, -0.950284302, 0.0411284156, 0.998630583, 0.0323301516, 0.949563682, -0.0491339862, 0.309700936)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.31381857, 0.0472175181, -0.328361869, 0.239502013, 0.968702018, 0.0652325526, 0.95234251, -0.247466549, 0.178337485, 0.188898772, 0.0194115583, -0.981804669)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860717893, 0.381682992, -0.435127914, 0.381611824, 0.0573442243, -0.922542274, -0.905906975, -0.175035119, -0.385610521, -0.183589786, 0.982890904, -0.0148470327)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332403, 0.977819145, 0.00149268284, -0.993293583, 0.108342811, -0.0403687023, -0.0318998843, 0.0787930191, 0.996380568, 0.111131437, 0.990986109, -0.0748084486)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06535828, -0.647257268, -0.889472008, 0.39566353, -0.076446645, 0.915208459, -0.526478171, 0.797650754, 0.294234484, -0.752509832, -0.598255098, 0.27535376)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--51, 0.8833333253860474
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0372333676, -0.774300575, -0.446094811, -0.991099715, -0.131751642, 0.0190486591, -0.000686669431, 0.148150027, 0.988964677, -0.133119762, 0.980149627, -0.146921903)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.23668301, -0.28014338, -0.860940754, 0.310340464, 0.0194714814, -0.950426042, 0.033100035, 0.998962641, 0.0312739797, 0.950049043, -0.041164767, 0.309374005)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.31691098, 0.046343863, -0.328445494, 0.238117918, 0.969233871, 0.06233548, 0.95276016, -0.245565802, 0.178733006, 0.188541561, 0.0168311968, -0.981920958)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860732079, 0.381656647, -0.435127556, 0.381500751, 0.0569033027, -0.922615469, -0.905846417, -0.175790817, -0.3854087, -0.184118256, 0.982781649, -0.0155187696)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331332, 0.977818906, 0.00149263837, -0.993344784, 0.107888915, -0.0403252989, -0.0322131775, 0.0759043843, 0.996594667, 0.110582516, 0.991261065, -0.0719236955)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06383038, -0.634540081, -0.895614862, 0.396314204, -0.0765749216, 0.914916098, -0.525710225, 0.798053384, 0.294515699, -0.752704382, -0.59770149, 0.276023567)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--52, 0.8999999761581421
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0368841365, -0.785273075, -0.442176759, -0.991164923, -0.131228074, 0.0192691162, -0.000739516283, 0.150744453, 0.988572478, -0.132633165, 0.979824185, -0.149509639)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.23450232, -0.266053677, -0.853450119, 0.309812605, 0.0210093483, -0.950565457, 0.0246916376, 0.999240875, 0.0301327929, 0.950476944, -0.0328065641, 0.309058636)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.31991565, 0.0454944372, -0.328526974, 0.236783206, 0.969738185, 0.0595106781, 0.953158677, -0.243727446, 0.179124177, 0.188207924, 0.0143096326, -0.982024968)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.86074841, 0.381627738, -0.435127169, 0.381379783, 0.0563978255, -0.922696471, -0.905779183, -0.176629394, -0.385183364, -0.184698775, 0.982660353, -0.0162790604)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330913, 0.977819085, 0.00149267877, -0.993393302, 0.107440658, -0.0403284468, -0.0325403996, 0.0732800812, 0.996780455, 0.110050112, 0.991507232, -0.069299683)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06224549, -0.621904016, -0.900867522, 0.396839291, -0.0767186657, 0.914676487, -0.524431229, 0.798887253, 0.29453519, -0.753319681, -0.596567929, 0.276796073)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--53, 0.9166666865348816
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0365215614, -0.79529357, -0.437552899, -0.991228819, -0.13071394, 0.0194795728, -0.000768028782, 0.153091803, 0.988211691, -0.132155225, 0.979528844, -0.151849389)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.23235607, -0.253174901, -0.845599473, 0.309282988, 0.0225554574, -0.950702548, 0.0159901753, 0.999453962, 0.0289140157, 0.950835705, -0.0241444893, 0.308753371)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.32283354, 0.0446689129, -0.328606635, 0.235496745, 0.970216453, 0.0567575917, 0.953538597, -0.24195002, 0.179511175, 0.187897146, 0.011846317, -0.982117295)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860766768, 0.381595761, -0.435126901, 0.381249487, 0.055830013, -0.922784865, -0.905705094, -0.177548483, -0.384934783, -0.185329944, 0.982527196, -0.0171250626)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330913, 0.977819264, 0.00149276201, -0.993439138, 0.106998228, -0.0403749496, -0.0328803845, 0.0709052309, 0.99694103, 0.10953363, 0.99172771, -0.0669218525)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06063092, -0.60939014, -0.905276358, 0.397244453, -0.076866731, 0.914488137, -0.522684276, 0.800117135, 0.294301957, -0.754319668, -0.594898462, 0.277664959)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--54, 0.9333333373069763
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0361457467, -0.804405689, -0.432307005, -0.991291344, -0.130208731, 0.0196801629, -0.000774361601, 0.155206859, 0.98788178, -0.131685331, 0.979263365, -0.153956026)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.23027217, -0.241477489, -0.837504625, 0.308752865, 0.0240916852, -0.950837195, 0.00707990211, 0.999593318, 0.0276260208, 0.951116025, -0.0152614675, 0.308456659)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.32566631, 0.0438670814, -0.32868427, 0.234258533, 0.970669389, 0.0540736914, 0.953900516, -0.240233049, 0.179894492, 0.187608391, 0.00943904929, -0.982198536)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860786915, 0.381561369, -0.435126424, 0.381110251, 0.055201564, -0.922880173, -0.90562433, -0.178545043, -0.384663761, -0.186009705, 0.982381999, -0.0180536043)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330913, 0.977819383, 0.0014927166, -0.99348253, 0.10656137, -0.0404614285, -0.0332320966, 0.0687655807, 0.997079194, 0.109032527, 0.991925359, -0.0647761673)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05901349, -0.5970366, -0.908885837, 0.3975375, -0.0770075694, 0.91434896, -0.520513117, 0.80170548, 0.293827385, -0.755665362, -0.592737854, 0.278624535)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--55, 0.949999988079071
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0357567742, -0.812651873, -0.426523179, -0.991352558, -0.129711926, 0.0198710114, -0.000760639959, 0.157104373, 0.98758173, -0.131222948, 0.979026556, -0.15584448)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.22827125, -0.230927169, -0.829271376, 0.308223844, 0.0256039184, -0.950969279, -0.00196103752, 0.999652684, 0.0262790881, 0.951311827, -0.00623497833, 0.308166951)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.32841504, 0.0430888832, -0.328759909, 0.23306717, 0.971098125, 0.0514600761, 0.954244733, -0.23857528, 0.180274576, 0.187341377, 0.00708939647, -0.982269406)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860808969, 0.381524533, -0.435125709, 0.38096258, 0.054514531, -0.922982037, -0.90553689, -0.17961663, -0.384370774, -0.186736643, 0.98222512, -0.019062398)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332217, 0.977819443, 0.00149276725, -0.993523657, 0.106130525, -0.0405848734, -0.033594273, 0.0668461695, 0.997197628, 0.108546026, 0.992102861, -0.0628478974)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05741811, -0.584888637, -0.911743999, 0.397727013, -0.0771307424, 0.914256155, -0.517961025, 0.803613544, 0.293123901, -0.757317364, -0.590132296, 0.279668033)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--56, 0.9666666388511658
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0353547633, -0.820075035, -0.420285344, -0.991412878, -0.129222944, 0.0200522076, -0.000728974759, 0.158799037, 0.987310767, -0.130767465, 0.97881788, -0.157529607)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.22637093, -0.221483767, -0.820996761, 0.307697773, 0.0270793084, -0.95109874, -0.0110579459, 0.9996292, 0.0248835608, 0.95141989, 0.00286052912, 0.307883054)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.33108139, 0.0423330665, -0.32883364, 0.231922179, 0.971503675, 0.0489143655, 0.954571903, -0.236975804, 0.180651709, 0.187095329, 0.00479518902, -0.982330143)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860833168, 0.381484509, -0.435125232, 0.380806863, 0.0537708141, -0.923089921, -0.905442774, -0.180760458, -0.384056151, -0.18750909, 0.98205626, -0.0201486219)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331845, 0.977819085, 0.00149277423, -0.993562579, 0.105705559, -0.0407419987, -0.0339657515, 0.0651324168, 0.997298419, 0.108073562, 0.992262185, -0.0611227937)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666710376739502, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05583942, -0.572855234, -0.913939357, 0.397820413, -0.077236332, 0.914206564, -0.515052021, 0.805814624, 0.292205662, -0.759249866, -0.587109268, 0.28078872)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--57, 0.9833333492279053
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0349398702, -0.82671833, -0.413677096, -0.991472065, -0.12874113, 0.0202238057, -0.000681450998, 0.160305351, 0.987067342, -0.13031815, 0.978635728, -0.159026012)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.22458231, -0.213099897, -0.812769592, 0.307175845, 0.0285080131, -0.951225817, -0.020140117, 0.99952203, 0.0234516598, 0.951439619, 0.011954003, 0.307603151)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.33366621, 0.041600585, -0.328905404, 0.230823278, 0.971886873, 0.0464370437, 0.954882324, -0.235434234, 0.18102631, 0.186869949, 0.00255710166, -0.982381344)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860858917, 0.381442785, -0.435124367, 0.380643308, 0.0529722534, -0.923203468, -0.905342102, -0.181973457, -0.383720249, -0.188324973, 0.981875598, -0.0213091206)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.0048533082, 0.977818847, 0.00149268156, -0.993599296, 0.105286337, -0.0409296826, -0.0343451612, 0.0636094362, 0.997383773, 0.107614331, 0.992405474, -0.0595862977)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05435681, -0.561246216, -0.91543293, 0.397832245, -0.0772962347, 0.914196372, -0.51186949, 0.808243155, 0.2910887, -0.761392951, -0.583753586, 0.281979442)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--58, 1
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0345122293, -0.832624674, -0.406782538, -0.99153024, -0.128266111, 0.0203858763, -0.000620134815, 0.161638096, 0.986849904, -0.129874513, 0.978478968, -0.160348579)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2229141, -0.20572716, -0.804668367, 0.306659847, 0.0298825391, -0.951349974, -0.0291419141, 0.999333203, 0.0219960921, 0.951372981, 0.0209788084, 0.307326257)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.33617139, 0.0408893228, -0.328975469, 0.229769558, 0.972248852, 0.0440235697, 0.955176771, -0.233948722, 0.1813986, 0.186663881, 0.000370509835, -0.982423842)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860886455, 0.381397605, -0.435123891, 0.380472898, 0.052120883, -0.923322201, -0.905234933, -0.183253214, -0.383364111, -0.189183012, 0.981683075, -0.0225414149)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330448, 0.977818906, 0.00149273535, -0.993634164, 0.104873046, -0.0411446691, -0.0347314253, 0.0622628294, 0.997455299, 0.107168093, 0.992534697, -0.0582240559)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05296493, -0.549985409, -0.916318178, 0.397771657, -0.0773104131, 0.914221525, -0.508442998, 0.810868204, 0.289790422, -0.763716936, -0.58009994, 0.283232421)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--59, 1.0166666507720947
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0340720229, -0.837838411, -0.399685264, -0.991587758, -0.127797142, 0.0205384288, -0.000547074771, 0.162811652, 0.986657023, -0.129435852, 0.978345752, -0.161511913)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.22137022, -0.199308693, -0.796764255, 0.306150734, 0.0311967805, -0.951471806, -0.0380005725, 0.99906677, 0.020530073, 0.951224387, 0.0298711509, 0.307050467)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.33859766, 0.0402010679, -0.329043448, 0.228760302, 0.972590208, 0.0416775905, 0.955455363, -0.232519314, 0.18176879, 0.186477378, -0.00176021748, -0.982457757)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860915601, 0.381351262, -0.435122967, 0.380295545, 0.0512185544, -0.923445821, -0.905121207, -0.184597209, -0.382987559, -0.190081552, 0.981478751, -0.023842819)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485333893, 0.977819026, 0.00149280753, -0.993667066, 0.104465693, -0.0413839668, -0.0351230539, 0.0610775016, 0.997514844, 0.106733754, 0.992651284, -0.0570215471)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05168331, -0.539119542, -0.916648865, 0.397650331, -0.0772711039, 0.914277613, -0.504820406, 0.813647449, 0.288329691, -0.766179204, -0.576200366, 0.284539133)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--60, 1.0333333015441895
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0336194411, -0.842401981, -0.392469108, -0.991644382, -0.127333701, 0.0206814855, -0.000464302284, 0.163840652, 0.986486733, -0.129001468, 0.97823441, -0.16253075)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21994984, -0.193786025, -0.789117932, 0.305649489, 0.0324472971, -0.951591074, -0.0466598831, 0.998728871, 0.0190675184, 0.951000154, 0.0385731347, 0.306774884)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.34094679, 0.0395334959, -0.329109758, 0.227794692, 0.972912073, 0.0393937863, 0.955718935, -0.231143937, 0.182137191, 0.186309114, -0.00384054286, -0.982483685)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860946178, 0.381302148, -0.43512249, 0.380111724, 0.0502673499, -0.923573792, -0.905000985, -0.186002731, -0.382591367, -0.191019088, 0.981262565, -0.0252099223)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330867, 0.977818847, 0.00149271241, -0.993698359, 0.104064085, -0.0416443273, -0.0355188735, 0.060039036, 0.997563899, 0.106310926, 0.992756784, -0.0559643656)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05052686, -0.528698206, -0.91647917, 0.39748022, -0.0771721154, 0.914359987, -0.501050711, 0.81653887, 0.286726981, -0.768737674, -0.572108984, 0.285890788)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--61, 1.0499999523162842
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0331546739, -0.846360207, -0.385217935, -0.991700351, -0.126875192, 0.0208150372, -0.000373831397, 0.164739594, 0.986337125, -0.128570765, 0.978142977, -0.163419738)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21865129, -0.189095318, -0.781785131, 0.305155993, 0.0336317942, -0.951708317, -0.0550648905, 0.998327255, 0.0176231693, 0.950709045, 0.0470278561, 0.306497455)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.34321976, 0.0388878882, -0.329174221, 0.226872399, 0.973214805, 0.0371744148, 0.955967367, -0.229822993, 0.182504207, 0.186159357, -0.00586761395, -0.982502043)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.860978544, 0.381251842, -0.435121924, 0.379922181, 0.0492689721, -0.923705459, -0.904874444, -0.187467068, -0.382176042, -0.191993743, 0.981034517, -0.0266407318)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330354, 0.977819145, 0.00149262557, -0.993727982, 0.10366834, -0.0419227853, -0.035917446, 0.0591325499, 0.997603774, 0.105899014, 0.992852569, -0.0550381355)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04951072, -0.518765032, -0.915865123, 0.397273183, -0.0770085678, 0.914463639, -0.49718371, 0.819500387, 0.285004407, -0.771351039, -0.567880988, 0.287278026)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--62, 1.0666667222976685
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0326779485, -0.849756002, -0.37801522, -0.991755724, -0.12642099, 0.0209390465, -0.000277654966, 0.165522963, 0.986205995, -0.128143027, 0.978069544, -0.164193437)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21746838, -0.185170472, -0.77481097, 0.304670781, 0.0347497016, -0.951823711, -0.0631657988, 0.997871399, 0.0162120033, 0.950360894, 0.0551833361, 0.306217253)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.34541857, 0.0382621884, -0.329236984, 0.225992367, 0.973499596, 0.035015896, 0.956201673, -0.228554368, 0.182869986, 0.186026886, -0.00784510747, -0.982513428)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.86101234, 0.381199032, -0.435121328, 0.379727036, 0.0482254662, -0.923840821, -0.904741406, -0.18898721, -0.381741852, -0.193003714, 0.980794728, -0.0281320363)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331286, 0.977819026, 0.00149261777, -0.993756235, 0.103278369, -0.042216111, -0.0363175012, 0.0583430603, 0.997635782, 0.105497263, 0.992939949, -0.0542280339)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0486474, -0.509370029, -0.914865553, 0.397041827, -0.0767761767, 0.914583683, -0.493270367, 0.822490394, 0.283185184, -0.773978114, -0.56357342, 0.2886917)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--63, 1.0833333730697632
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0321894884, -0.852633715, -0.370944887, -0.99181062, -0.125970557, 0.02105348, -0.000177764756, 0.166205242, 0.986091197, -0.127717659, 0.978011966, -0.164866477)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21639276, -0.181940734, -0.768236876, 0.304192901, 0.0358018428, -0.951937556, -0.0709147751, 0.997371852, 0.0148497168, 0.949967325, 0.0629891679, 0.305932283)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.34754336, 0.0376577377, -0.32929787, 0.225154132, 0.973766863, 0.0329207107, 0.956421673, -0.227338299, 0.183234543, 0.185911834, -0.00976977497, -0.982517898)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861047387, 0.381144136, -0.435120702, 0.379526883, 0.0471389443, -0.923979163, -0.90460211, -0.190560803, -0.381289542, -0.194047689, 0.980543017, -0.0296810977)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331286, 0.977819145, 0.00149266701, -0.993783116, 0.102894068, -0.0425213203, -0.0367176756, 0.0576564595, 0.997661054, 0.10510508, 0.993019998, -0.0535199493)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04794276, -0.500551403, -0.913538992, 0.396797657, -0.0764733925, 0.914715052, -0.489362478, 0.825468302, 0.281294256, -0.776579738, -0.559244096, 0.290120542)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--64, 1.100000023841858
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0316895619, -0.855037212, -0.364090502, -0.991865158, -0.12552315, 0.0211582649, -7.6127697e-05, 0.166800797, 0.985990644, -0.12729387, 0.977968097, -0.165453419)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21541607, -0.179334581, -0.762097478, 0.303721368, 0.0367895514, -0.952050388, -0.0782687292, 0.996840179, 0.0135512138, 0.949540675, 0.0703999251, 0.305641115)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.34959698, 0.0370727777, -0.329357028, 0.2243568, 0.97401756, 0.0308841076, 0.956628144, -0.226172909, 0.183598444, 0.185813248, -0.0116467196, -0.98251605)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861083984, 0.381087631, -0.435120285, 0.379322231, 0.0460108966, -0.924120009, -0.904456437, -0.192185163, -0.380819499, -0.195123941, 0.980279446, -0.0312854387)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331565, 0.977819204, 0.00149275339, -0.993808746, 0.102515414, -0.0428353027, -0.0371165164, 0.0570574775, 0.997680783, 0.104721718, 0.993093729, -0.0528991967)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04740334, -0.492345572, -0.911951125, 0.396552324, -0.0760990754, 0.914852619, -0.485512078, 0.828394473, 0.279357433, -0.779117703, -0.554951787, 0.29155463)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--65, 1.1166666746139526
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0311783999, -0.857009888, -0.357535839, -0.991919279, -0.125078276, 0.0212533455, 2.53028447e-05, 0.1673242, 0.985901952, -0.126871109, 0.977935672, -0.165968895)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21452498, -0.177280486, -0.756419837, 0.303254843, 0.0377154648, -0.952162862, -0.0851859525, 0.996288717, 0.0123324059, 0.949094296, 0.0773710087, 0.305342168)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.35157907, 0.0365076363, -0.329414427, 0.223599866, 0.974252403, 0.0289058071, 0.956821442, -0.225057378, 0.183961734, 0.185730606, -0.0134762563, -0.982508302)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861121774, 0.381029516, -0.435119778, 0.379113168, 0.0448435582, -0.924263179, -0.904304683, -0.193857089, -0.380332112, -0.196230352, 0.98000443, -0.0329416543)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332869, 0.977819085, 0.00149273756, -0.993833303, 0.102142245, -0.0431549586, -0.0375126451, 0.0565315336, 0.997695863, 0.104346588, 0.993162274, -0.0523512736)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04703152, -0.484789371, -0.91016084, 0.396316439, -0.0756542608, 0.914991796, -0.48177132, 0.831230819, 0.277401358, -0.781555891, -0.55075556, 0.29298231)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--66, 1.1333333253860474
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0306562707, -0.858596325, -0.351364493, -0.991973162, -0.124635212, 0.0213386118, 0.000124578626, 0.167789787, 0.985822797, -0.126448631, 0.977912486, -0.166427419)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21370816, -0.175698042, -0.751230359, 0.302791208, 0.0385830626, -0.952275693, -0.0916270316, 0.995730281, 0.0112094283, 0.948642194, 0.0838600546, 0.305033594)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.35349226, 0.0359612107, -0.329470456, 0.22288239, 0.974471807, 0.0269859843, 0.957001865, -0.223991066, 0.184324384, 0.185663551, -0.0152571816, -0.98249501)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861160815, 0.380969554, -0.435119689, 0.378900498, 0.0436385386, -0.924408019, -0.904146671, -0.195574492, -0.379828036, -0.197365731, 0.979717553, -0.0346477255)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331425, 0.977819204, 0.00149274012, -0.993856966, 0.101774581, -0.0434773415, -0.0379047319, 0.0560639054, 0.997707427, 0.103978954, 0.993226469, -0.0518617816)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0468266, -0.477914393, -0.908233583, 0.396100402, -0.0751413256, 0.915127575, -0.478193313, 0.833940148, 0.275454313, -0.783859551, -0.546715438, 0.294391811)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--67, 1.149999976158142
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0301234648, -0.859840155, -0.34566015, -0.992026985, -0.124193393, 0.0214139745, 0.0002197711, 0.168212041, 0.985750914, -0.126025811, 0.977896154, -0.166843578)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21295357, -0.174513757, -0.746547639, 0.302328557, 0.0393947624, -0.952389479, -0.0975545645, 0.995177865, 0.0101967389, 0.948198617, 0.0898271203, 0.304713875)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.35533738, 0.0354349911, -0.329524517, 0.222203925, 0.97467649, 0.0251237713, 0.957169712, -0.222973377, 0.184686616, 0.18561165, -0.0169904381, -0.982476354)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861200929, 0.380908668, -0.435119539, 0.378684223, 0.0423983335, -0.924554348, -0.903982818, -0.197334468, -0.379307747, -0.198528424, 0.979418993, -0.0364002176)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.0048533068, 0.977819204, 0.00149264256, -0.993879855, 0.10141246, -0.0437994264, -0.0382912233, 0.0556398109, 0.997716427, 0.103617996, 0.993287325, -0.0514160991)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04678512, -0.471748233, -0.90623188, 0.395914167, -0.0745638907, 0.915255368, -0.474830031, 0.836486459, 0.273544997, -0.785995185, -0.542890966, 0.295771599)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--68, 1.1666666269302368
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0295802802, -0.860785961, -0.340506494, -0.992080688, -0.123752154, 0.0214793049, 0.000308965042, 0.168605372, 0.98568368, -0.125601977, 0.977884352, -0.167231888)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21224654, -0.17365104, -0.742390215, 0.301864386, 0.0401554704, -0.952504873, -0.102933198, 0.994644761, 0.00931083132, 0.947777748, 0.095233731, 0.304381102)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.35711551, 0.0349266231, -0.329577088, 0.221563578, 0.974867165, 0.023317812, 0.957325339, -0.222002938, 0.185048819, 0.185574636, -0.0186774023, -0.982452691)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861242294, 0.380846322, -0.43511951, 0.378465116, 0.0411245078, -0.924701571, -0.903812766, -0.199134141, -0.378771752, -0.199716419, 0.979108989, -0.0381965712)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330867, 0.977819383, 0.00149267702, -0.993902147, 0.101055749, -0.0441181399, -0.0386708044, 0.0552447103, 0.997723758, 0.10326317, 0.993345797, -0.0509999171)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04690278, -0.466317832, -0.904216051, 0.395766646, -0.0739265457, 0.915370941, -0.47173366, 0.838835478, 0.271702528, -0.787931502, -0.539341986, 0.297109395)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--69, 1.1833332777023315
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0290270001, -0.861477375, -0.335987389, -0.992134452, -0.123310931, 0.021534482, 0.000390251982, 0.168984264, 0.98561877, -0.125176534, 0.977874696, -0.16760698)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21157312, -0.173031449, -0.738772571, 0.301395804, 0.0408689678, -0.95262289, -0.10772752, 0.994143546, 0.00856683776, 0.947393954, 0.100041635, 0.304033428)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.35882854, 0.0344370008, -0.329627991, 0.220960513, 0.97504431, 0.0215664171, 0.957469106, -0.221078753, 0.185410872, 0.185551658, -0.0203192029, -0.982424438)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861284494, 0.380782396, -0.435119629, 0.378243446, 0.0398191214, -0.924849391, -0.903636932, -0.20097129, -0.378220826, -0.200928539, 0.978787541, -0.0400340743)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332357, 0.977819383, 0.00149275968, -0.993923843, 0.100704335, -0.0444305353, -0.0390419476, 0.0548635349, 0.997730315, 0.102913521, 0.993402541, -0.0505985394)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04717183, -0.461644471, -0.90224874, 0.395665526, -0.0732355043, 0.915470064, -0.468955606, 0.840954304, 0.269956529, -0.789638877, -0.536127269, 0.298392475)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--70, 1.2000000476837158
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0284639597, -0.861958504, -0.332186222, -0.992188275, -0.122868992, 0.0215793438, 0.000461732037, 0.169363096, 0.985553622, -0.124748722, 0.977864742, -0.167983338)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21092117, -0.172582567, -0.735706925, 0.300920933, 0.0415384695, -0.952744126, -0.111903548, 0.993687034, 0.00797921792, 0.947060823, 0.104214273, 0.303669482)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36047721, 0.0339640677, -0.329677343, 0.220394388, 0.975208402, 0.0198705327, 0.957601309, -0.220200583, 0.185772985, 0.185542881, -0.0219149105, -0.982391715)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861327946, 0.380716741, -0.435119748, 0.378019631, 0.0384839252, -0.924997389, -0.903455317, -0.202842698, -0.377655089, -0.202162594, 0.978454828, -0.041909989)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331099, 0.977818847, 0.00149272673, -0.993945241, 0.100358225, -0.0447335728, -0.0394032635, 0.0544816367, 0.99773705, 0.102568336, 0.993458688, -0.0501973368)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04758406, -0.457750618, -0.900387704, 0.395619452, -0.0724970102, 0.915548801, -0.466545671, 0.842810929, 0.268337101, -0.791088164, -0.533304572, 0.299609154)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--71, 1.2166666984558105
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0278914869, -0.862273693, -0.329186738, -0.992242336, -0.12242578, 0.0216137432, 0.000521537848, 0.169756293, 0.985486031, -0.124317952, 0.977852106, -0.168375537)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.21027637, -0.172224343, -0.733207047, 0.300436437, 0.0421686098, -0.952869236, -0.115427911, 0.993287027, 0.00756324548, 0.946791589, 0.107715368, 0.303287029)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36206329, 0.0335096717, -0.329725325, 0.21986419, 0.975360274, 0.0182251539, 0.957722425, -0.219366372, 0.186135262, 0.18554689, -0.0234697163, -0.982355118)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861372173, 0.380651325, -0.435120165, 0.377794027, 0.0371211879, -0.925145209, -0.903268039, -0.204746336, -0.377075523, -0.203417495, 0.978110909, -0.0438218489)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331798, 0.977819562, 0.0014927513, -0.99396652, 0.100017399, -0.0450243317, -0.0397532247, 0.0540843867, 0.997744799, 0.102226928, 0.993514776, -0.0497821048)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04812884, -0.454650402, -0.898691475, 0.395634711, -0.0717186257, 0.915603459, -0.464553863, 0.844374239, 0.266874105, -0.792251885, -0.530931771, 0.30074656)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--72, 1.2333333492279053
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.027309902, -0.862466574, -0.32707274, -0.992296636, -0.121980637, 0.0216374993, 0.000567790295, 0.170178309, 0.985413134, -0.123883545, 0.977834404, -0.168798104)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20962656, -0.171888709, -0.731282175, 0.299940526, 0.0427625775, -0.952998996, -0.11826776, 0.992954671, 0.00733265933, 0.946598351, 0.110509649, 0.302884668)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36358798, 0.0330717266, -0.329771638, 0.219369158, 0.975500226, 0.0166325588, 0.957832515, -0.218575925, 0.186497733, 0.185564041, -0.0249806792, -0.982314587)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861417353, 0.380583614, -0.43512091, 0.377566874, 0.0357325822, -0.925292671, -0.903075218, -0.206679121, -0.376482427, -0.204691276, 0.977756143, -0.0457661301)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332916, 0.977819026, 0.0014926655, -0.993987799, 0.0996815264, -0.0452997722, -0.040090479, 0.0536569431, 0.997754395, 0.101888388, 0.993571699, -0.0493380874)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04879558, -0.452363491, -0.89721328, 0.395717949, -0.0709079877, 0.915630698, -0.463027358, 0.845614433, 0.265597254, -0.793103397, -0.529063582, 0.301792383)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--73, 1.25
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0267195627, -0.862582207, -0.325927645, -0.992351294, -0.12153291, 0.0216504242, 0.000598640298, 0.170643553, 0.985332668, -0.12344484, 0.977809072, -0.169265583)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20895875, -0.171499848, -0.729944646, 0.299431175, 0.0433241986, -0.953133821, -0.120388791, 0.992699981, 0.00730200857, 0.946492195, 0.112560138, 0.302461058)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36505222, 0.032651186, -0.32981652, 0.218908623, 0.975628674, 0.0150909899, 0.957932174, -0.217828304, 0.186860338, 0.185593501, -0.0264492407, -0.982270658)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861463249, 0.380515337, -0.435121655, 0.377338827, 0.0343203247, -0.92543906, -0.902877033, -0.208638251, -0.375876725, -0.205982104, 0.977390587, -0.0477404669)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330494, 0.977819204, 0.00149269833, -0.994009078, 0.0993509069, -0.0455570482, -0.0404134542, 0.0531845279, 0.997766674, 0.10155189, 0.993630111, -0.0488508008)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.04957414, -0.450903416, -0.896004796, 0.395875692, -0.0700722933, 0.915626884, -0.462012976, 0.846501529, 0.264535666, -0.793616116, -0.527754545, 0.302735031)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--74, 1.2666666507720947
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0261208415, -0.862663746, -0.325835288, -0.992406368, -0.121081993, 0.0216523129, 0.000612244243, 0.17116642, 0.98524195, -0.123001203, 0.977773607, -0.169792503)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20826101, -0.170992792, -0.729204893, 0.298906207, 0.0438571349, -0.95327419, -0.121757865, 0.992531598, 0.00748520624, 0.946483016, 0.113831215, 0.302013814)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36645806, 0.0322464705, -0.329860032, 0.218481943, 0.975746274, 0.0136001296, 0.958021402, -0.217122778, 0.187223449, 0.185635418, -0.0278757326, -0.982223213)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.86150986, 0.380445689, -0.435122788, 0.377110064, 0.0328860506, -0.925584435, -0.902673542, -0.210621104, -0.375258893, -0.20728828, 0.977014542, -0.0497421846)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331845, 0.977818966, 0.00149267819, -0.994030654, 0.099025093, -0.0457931273, -0.0407207459, 0.0526524559, 0.99778229, 0.101216704, 0.993690968, -0.0483057983)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0504539, -0.450287461, -0.895110905, 0.396113664, -0.0692193434, 0.915588796, -0.461554527, 0.847006619, 0.263718039, -0.793764055, -0.527056336, 0.303562373)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--75, 1.2833333015441895
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0255093724, -0.862627506, -0.326328993, -0.99246186, -0.120626867, 0.0216487925, 0.000612963049, 0.171758756, 0.985138953, -0.122552581, 0.977725983, -0.170390084)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20755243, -0.170492649, -0.728768885, 0.298371702, 0.0443780571, -0.95341754, -0.122771926, 0.992404521, 0.00777135976, 0.946520746, 0.114734143, 0.301553696)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36780596, 0.0318582356, -0.329901934, 0.218088374, 0.975853324, 0.0121583575, 0.958100796, -0.216458187, 0.187586918, 0.185689092, -0.0292614996, -0.982172847)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861557186, 0.380376518, -0.435123742, 0.376880944, 0.0314320736, -0.925728261, -0.902465045, -0.212625608, -0.374629557, -0.208608866, 0.976628125, -0.0517683253)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330634, 0.977819383, 0.00149277435, -0.994052649, 0.0987034813, -0.0460115559, -0.0410168432, 0.0520501174, 0.997801781, 0.100881509, 0.993754804, -0.0476921126)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0514282, -0.450153232, -0.894301951, 0.396385312, -0.0683293119, 0.915538013, -0.461331457, 0.847358763, 0.262975782, -0.793758273, -0.526606143, 0.304358095)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--76, 1.2999999523162842
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0248811245, -0.862362385, -0.326884419, -0.99251771, -0.120166972, 0.021645369, 0.000606488262, 0.172420442, 0.98502326, -0.122099362, 0.977666199, -0.171057448)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20686078, -0.170168042, -0.728336573, 0.297833264, 0.0449019521, -0.953561366, -0.123848043, 0.992268562, 0.00804220885, 0.946550071, 0.1157014, 0.301091522)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.36909747, 0.0314860046, -0.329942405, 0.217726961, 0.97595042, 0.010764827, 0.958170354, -0.215833589, 0.18795073, 0.185753927, -0.0306072459, -0.982119501)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861604989, 0.380306274, -0.435125142, 0.376651883, 0.029960243, -0.925870299, -0.902251661, -0.214648351, -0.373989433, -0.209941253, 0.976231813, -0.0538162142)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330494, 0.977819681, 0.00149276096, -0.994074643, 0.0983850062, -0.0462179855, -0.0413072854, 0.0513792485, 0.997824669, 0.1005456, 0.993821263, -0.047010757)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05249691, -0.450132966, -0.893317223, 0.396640092, -0.0673782304, 0.915498197, -0.460997194, 0.847804785, 0.262123376, -0.79382503, -0.526010633, 0.30521208)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--77, 1.3166667222976685
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0242370367, -0.86187315, -0.327498615, -0.992573977, -0.119702376, 0.0216416791, 0.000592979603, 0.173147947, 0.984895647, -0.121641554, 0.977594614, -0.171791151)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20618629, -0.170019567, -0.727909923, 0.29729113, 0.0454281271, -0.953705609, -0.124982677, 0.992124259, 0.00829825737, 0.94657141, 0.116729677, 0.30062744)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37033439, 0.0311276615, -0.329981685, 0.217397392, 0.976037741, 0.00941735879, 0.958230615, -0.215248033, 0.188315064, 0.185829699, -0.0319150016, -0.982063532)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861653388, 0.380233884, -0.435126871, 0.37642327, 0.0284723584, -0.926010251, -0.902033627, -0.216686934, -0.373339236, -0.211284131, 0.975825906, -0.0558831468)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331193, 0.977818906, 0.0014927485, -0.994096816, 0.098069407, -0.0464125462, -0.0415917225, 0.0506434031, 0.997850418, 0.100209095, 0.993890226, -0.0462655202)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05365622, -0.450228512, -0.892163575, 0.396879137, -0.0663686469, 0.915468276, -0.460555404, 0.848340571, 0.261164576, -0.793962121, -0.525274575, 0.306122214)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--78, 1.3333333730697632
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0235779658, -0.861165285, -0.328168869, -0.992630541, -0.119233184, 0.0216373615, 0.000572588819, 0.173937872, 0.98475647, -0.121179201, 0.977511704, -0.172587767)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20552814, -0.170039892, -0.727491558, 0.29674536, 0.0459563807, -0.953850269, -0.126172274, 0.991971612, 0.00854052138, 0.946584761, 0.1178151, 0.300161421)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37151766, 0.030784905, -0.330019653, 0.217098475, 0.976116002, 0.00811597798, 0.958281636, -0.214700699, 0.188679844, 0.185915917, -0.0331846103, -0.982005179)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861702383, 0.380162477, -0.435128629, 0.376195252, 0.0269706044, -0.926147759, -0.901811063, -0.218739137, -0.37267974, -0.212636128, 0.97541064, -0.0579663813)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331332, 0.977818906, 0.0014927272, -0.994118989, 0.0977567807, -0.0465954132, -0.0418700986, 0.0498459488, 0.997878969, 0.0998720527, 0.993961275, -0.0454596765)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05490232, -0.450436413, -0.890847445, 0.397102326, -0.0653025955, 0.915448189, -0.46001038, 0.848962188, 0.260102779, -0.794166386, -0.524403095, 0.307085067)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--79, 1.350000023841858
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0229048207, -0.86024332, -0.328892112, -0.992687404, -0.118759431, 0.0216320567, 0.000545472372, 0.174786732, 0.984606147, -0.120712258, 0.977417946, -0.173443809)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20488715, -0.170229614, -0.727082253, 0.296196252, 0.0464863554, -0.953995228, -0.127413511, 0.991810858, 0.00876973383, 0.946590543, 0.118954293, 0.299693614)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.3726486, 0.0304574966, -0.330056071, 0.216829598, 0.976185381, 0.00686134677, 0.958323598, -0.214190915, 0.189045221, 0.186012775, -0.0344150588, -0.981944501)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861751854, 0.380090147, -0.435130745, 0.375968248, 0.0254570358, -0.926282823, -0.901584268, -0.220801756, -0.372011513, -0.213995129, 0.974986434, -0.0600629151)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331798, 0.977818966, 0.00149271474, -0.99414134, 0.0974468738, -0.0467668287, -0.0421420671, 0.0489902496, 0.997909904, 0.0995343029, 0.994034231, -0.0445966348)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05623209, -0.450759053, -0.889371276, 0.397311121, -0.064181976, 0.915436864, -0.459365636, 0.849666238, 0.258941144, -0.794435143, -0.523400307, 0.308098823)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--80, 1.3666666746139526
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0222184658, -0.859112024, -0.329665422, -0.992744684, -0.11828123, 0.0216254052, 0.000511785911, 0.175691023, 0.984445333, -0.120240778, 0.977313817, -0.174355805)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20426309, -0.170586586, -0.726684511, 0.29564321, 0.0470172688, -0.954140723, -0.128703207, 0.991642416, 0.00898619555, 0.946588993, 0.120144218, 0.299223572)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37372839, 0.0301437974, -0.330091327, 0.216590106, 0.976246357, 0.00564844673, 0.958357275, -0.213717118, 0.189410999, 0.18611896, -0.0356115736, -0.981881678)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861801505, 0.380018026, -0.43513298, 0.375742525, 0.0239332113, -0.926415026, -0.901353359, -0.222872317, -0.371335596, -0.215359464, 0.974553823, -0.0621705353)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331379, 0.977819026, 0.00149268331, -0.99416393, 0.0971396565, -0.0469269529, -0.042407427, 0.0480797738, 0.997942924, 0.0991960987, 0.994108856, -0.0436798111)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05764174, -0.451195955, -0.887742639, 0.39750579, -0.0630091429, 0.915433824, -0.45862487, 0.85044837, 0.257683277, -0.794765592, -0.522271335, 0.30916062)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--81, 1.3833333253860474
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0215198025, -0.857776642, -0.330486059, -0.992802203, -0.117798671, 0.0216170531, 0.000471675041, 0.17664738, 0.984274089, -0.119764768, 0.977199674, -0.175320342)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20365572, -0.171107411, -0.726299822, 0.295087188, 0.0475494191, -0.954286516, -0.130038574, 0.991466343, 0.00919109024, 0.946579874, 0.121381857, 0.298752248)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37475872, 0.029844135, -0.330125391, 0.216379479, 0.976299047, 0.00448137196, 0.958382189, -0.21327965, 0.1897773, 0.186235175, -0.0367689095, -0.981817007)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861851394, 0.379945695, -0.435135543, 0.375518441, 0.022401752, -0.926544249, -0.901118696, -0.2249486, -0.370652467, -0.216728017, 0.974113166, -0.0642857924)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331286, 0.977819145, 0.00149263884, -0.99418658, 0.0968349352, -0.0470758006, -0.0426660106, 0.0471181236, 0.997977674, 0.0988572389, 0.994184613, -0.0427125767)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.05912673, -0.451747477, -0.885965645, 0.397687405, -0.0617863238, 0.915438294, -0.457791507, 0.851305008, 0.256332815, -0.795155108, -0.521020293, 0.310268044)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--82, 1.399999976158142
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.02080971, -0.856241465, -0.331351101, -0.992860079, -0.117311813, 0.0216066502, 0.000425288978, 0.177652225, 0.984093249, -0.119284227, 0.977076113, -0.176333904)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2030648, -0.171789825, -0.725928843, 0.29452756, 0.0480819419, -0.954432726, -0.131415501, 0.99128294, 0.00938499346, 0.946564138, 0.122663051, 0.298278779)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37574041, 0.0295574665, -0.330158025, 0.216196299, 0.976344228, 0.00335658737, 0.958399177, -0.212876379, 0.190144151, 0.186360672, -0.0378911756, -0.981750429)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861901581, 0.379872561, -0.435138077, 0.375296354, 0.0208642092, -0.926670015, -0.900880516, -0.22702764, -0.369963288, -0.218098596, 0.97366488, -0.0664065257)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332264, 0.977818906, 0.00149274, -0.994209468, 0.0965326205, -0.0472137704, -0.0429175608, 0.0461087264, 0.998014152, 0.098517932, 0.994261324, -0.0416987427)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06068373, -0.452414691, -0.884044349, 0.397856683, -0.0605157316, 0.915449619, -0.456869245, 0.852232218, 0.254893243, -0.795600712, -0.519651651, 0.311418474)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--83, 1.4166666269302368
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.020089075, -0.854512215, -0.332257628, -0.992918253, -0.116820738, 0.0215938427, 0.000372772891, 0.178702176, 0.98390317, -0.11879915, 0.976943433, -0.177393094)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.2024895, -0.172631741, -0.725573182, 0.293964535, 0.0486152582, -0.954579234, -0.132832646, 0.991092265, 0.00956871919, 0.94654119, 0.123986371, 0.29780367)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37667549, 0.029284358, -0.330189526, 0.216040492, 0.976381838, 0.00227142777, 0.958408237, -0.212506786, 0.190511271, 0.186494395, -0.038981013, -0.981682479)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.861951768, 0.379800141, -0.435141057, 0.375076294, 0.0193226133, -0.926792622, -0.900639296, -0.22910668, -0.369268447, -0.219469562, 0.97320956, -0.0685298666)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485332496, 0.977819383, 0.00149279414, -0.994232476, 0.0962326825, -0.047340855, -0.043161843, 0.0450546667, 0.998051703, 0.0981781408, 0.994338751, -0.0406412371)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06230819, -0.453196526, -0.881985486, 0.398014486, -0.0591998845, 0.915467083, -0.45586127, 0.853226244, 0.253368169, -0.796099842, -0.518170059, 0.312609434)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--84, 1.4333332777023315
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0193587691, -0.852593184, -0.33320266, -0.992976725, -0.116325542, 0.0215782933, 0.000314268575, 0.179793686, 0.983704388, -0.118309572, 0.976802289, -0.178494394)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20192993, -0.173630357, -0.725233555, 0.29339835, 0.0491487309, -0.9547261, -0.134286731, 0.990894675, 0.00974284671, 0.946511805, 0.125348434, 0.297326803)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37756431, 0.0290240347, -0.330219805, 0.215910956, 0.976412296, 0.00122707535, 0.958409727, -0.21216999, 0.190878853, 0.186636746, -0.0400368534, -0.981612921)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.862002134, 0.379727274, -0.435144067, 0.374858648, 0.0177793019, -0.926911533, -0.900394976, -0.231183365, -0.368569255, -0.220839292, 0.972747803, -0.0706527829)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331798, 0.977819324, 0.00149274652, -0.994255662, 0.0959348902, -0.0474573523, -0.0433987118, 0.0439598523, 0.998090208, 0.0978379473, 0.994416475, -0.0395439677)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666769981384277, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06399536, -0.454093456, -0.879792869, 0.398161322, -0.0578414127, 0.91549015, -0.454771101, 0.854282975, 0.251761407, -0.796649814, -0.516579926, 0.313837796)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--85, 1.4500000476837158
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.0186196566, -0.85048914, -0.334183395, -0.993035495, -0.115826279, 0.0215596464, 0.000249912671, 0.180923343, 0.983497262, -0.117815457, 0.97665298, -0.179634362)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20138621, -0.174783945, -0.724911511, 0.292828768, 0.0496822372, -0.954873323, -0.135774523, 0.990690231, 0.0099081574, 0.946475923, 0.126746029, 0.296848118)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37840891, 0.0287757814, -0.330248922, 0.215807214, 0.976436019, 0.000222545656, 0.958403766, -0.211865425, 0.191246986, 0.186787561, -0.0410590731, -0.981541991)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.862052619, 0.379654974, -0.435147494, 0.374643892, 0.0162359048, -0.927026689, -0.900147974, -0.233254984, -0.367866516, -0.222206131, 0.972280085, -0.0727730319)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485331332, 0.977819204, 0.00149269658, -0.994279087, 0.0956392214, -0.0475633405, -0.0436279476, 0.0428276137, 0.998129487, 0.0974973664, 0.994494319, -0.0384101123)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.0657419, -0.455105126, -0.877472699, 0.398298144, -0.0564425625, 0.915517867, -0.453601807, 0.855398715, 0.250076681, -0.797247767, -0.514885604, 0.315101236)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--86, 1.4666666984558105
+		tween1 = ts:Create(part1, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.017872639, -0.84820509, -0.335196823, -0.993094563, -0.115323044, 0.0215375647, 0.000179844836, 0.182087615, 0.983282387, -0.117316827, 0.97649616, -0.180809483)}) tween1:Play() tablesorting(part1, tween1)
+		tween5 = ts:Create(part5, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-1.20085669, -0.176090956, -0.72460717, 0.292255789, 0.0502158292, -0.955020964, -0.137293771, 0.990479231, 0.0100656468, 0.946433902, 0.12817663, 0.296367586)}) tween5:Play() tablesorting(part5, tween5)
+		tween2 = ts:Create(part2, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.37921023, 0.0285395086, -0.330277085, 0.215728313, 0.976453185, -0.000742696924, 0.958390534, -0.211592063, 0.191615209, 0.186946079, -0.0420484208, -0.98146987)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(-0.862103045, 0.379582316, -0.4351511, 0.374431849, 0.014694605, -0.927138031, -0.899898946, -0.235319257, -0.367160767, -0.223568663, 0.971807063, -0.074887529)}) tween3:Play() tablesorting(part3, tween3)
+		tween6 = ts:Create(part6, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(0.00485330727, 0.977819145, 0.00149268634, -0.99430275, 0.0953454971, -0.0476589799, -0.0438493453, 0.0416613705, 0.998169124, 0.0971564725, 0.994572103, -0.0372432098)}) tween6:Play() tablesorting(part6, tween6)
+		tween4 = ts:Create(part4, TweenInfo.new(0.016666650772094727, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {C0 = CFrame.new(1.06754184, -0.456233501, -0.875027716, 0.398425907, -0.0550060272, 0.915549755, -0.452356994, 0.856569588, 0.248317733, -0.797891021, -0.513091445, 0.316397071)}) tween4:Play() tablesorting(part4, tween4)
+		task.wait(0.014)
+
+		if afterframe() then
+			return
+		end
+
+		--87, 1.4833333492279053
+		part1.C0 = CFrame.new(-0.017872639, -0.84820509, -0.335196823, -0.993094563, -0.115323044, 0.0215375647, 0.000179844836, 0.182087615, 0.983282387, -0.117316827, 0.97649616, -0.180809483)
+		part5.C0 = CFrame.new(-1.20085669, -0.176090956, -0.72460717, 0.292255789, 0.0502158292, -0.955020964, -0.137293771, 0.990479231, 0.0100656468, 0.946433902, 0.12817663, 0.296367586)
+		part2.C0 = CFrame.new(1.37921023, 0.0285395086, -0.330277085, 0.215728313, 0.976453185, -0.000742696924, 0.958390534, -0.211592063, 0.191615209, 0.186946079, -0.0420484208, -0.98146987)
+		part3.C0 = CFrame.new(-0.862103045, 0.379582316, -0.4351511, 0.374431849, 0.014694605, -0.927138031, -0.899898946, -0.235319257, -0.367160767, -0.223568663, 0.971807063, -0.074887529)
+		part6.C0 = CFrame.new(0.00485330727, 0.977819145, 0.00149268634, -0.99430275, 0.0953454971, -0.0476589799, -0.0438493453, 0.0416613705, 0.998169124, 0.0971564725, 0.994572103, -0.0372432098)
+		part4.C0 = CFrame.new(1.06754184, -0.456233501, -0.875027716, 0.398425907, -0.0550060272, 0.915549755, -0.452356994, 0.856569588, 0.248317733, -0.797891021, -0.513091445, 0.316397071)
+
+		--smooth transition
+		tween1 = ts:Create(part1, TweenInfo.new(0.5), {C0 = CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0)}) tween1:Play() tablesorting(part1, tween1)
+		tween2 = ts:Create(part2, TweenInfo.new(0.5), {C0 = CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)}) tween2:Play() tablesorting(part2, tween2)
+		tween3 = ts:Create(part3, TweenInfo.new(0.5), {C0 = CFrame.new(-1, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)}) tween3:Play() tablesorting(part3, tween3)
+		tween4 = ts:Create(part4, TweenInfo.new(0.5), {C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)}) tween4:Play() tablesorting(part4, tween4)
+		tween5 = ts:Create(part5, TweenInfo.new(0.5), {C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)}) tween5:Play() tablesorting(part5, tween5)
+		tween6 = ts:Create(part6, TweenInfo.new(0.5), {C0 = CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0)}) tween6:Play() tablesorting(part6, tween6)
+		task.wait(0.5)
+
+		if afterframe() then
+			return
+		end
+
+		connect:Disconnect()
+		connect2:Disconnect()
+		priority.Value = 0
+		animvalue.Value = false
+		return
+	end
+end
+wait() animation(game.Players.LocalPlayer.Character)
